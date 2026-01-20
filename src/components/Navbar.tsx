@@ -42,9 +42,11 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">MD</span>
-            </div>
+            <img 
+              src="/mujeresdigitales.jpg" 
+              alt="Logo" 
+              className="h-8 w-8 rounded-lg object-cover"
+            />
             <span className="font-semibold text-foreground text-lg hidden sm:block">
               Mujeres Digitales
             </span>

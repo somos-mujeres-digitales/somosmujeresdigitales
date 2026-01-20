@@ -7,8 +7,9 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 // Pages
 import LandingPage from "./pages/LandingPage";
-import ParaMenteesPage from "./pages/ParaMenteesPage";
-import ParaMentorasPage from "./pages/ParaMentorasPage";
+import MenteeLandingPage from "./pages/MenteeLandingPage";
+import MentoraLandingPage from "./pages/MentoraLandingPage";
+import ResourcesPage from "./pages/ResourcesPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
@@ -33,9 +34,9 @@ const App = () => (
           <Routes>
             {/* Public */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/para-mentees" element={<ParaMenteesPage />} />
-            <Route path="/para-mentoras" element={<ParaMentorasPage />} />
-            <Route path="/recursos" element={<LandingPage />} />
+            <Route path="/para-mentees" element={<MenteeLandingPage />} />
+            <Route path="/para-mentoras" element={<MentoraLandingPage />} />
+            <Route path="/recursos" element={<ResourcesPage />} />
             
             {/* Auth */}
             <Route path="/login" element={<LoginPage />} />

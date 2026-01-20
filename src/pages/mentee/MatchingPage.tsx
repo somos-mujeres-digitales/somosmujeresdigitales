@@ -231,11 +231,12 @@ const MatchingPage: React.FC = () => {
           </p>
 
           {/* Mentors Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 py-2">
             {filteredMentoras.map((mentor) => (
               <MentorCard
                 key={mentor.id}
                 {...mentor}
+                className="h-full"
                 isRecommended={mentor.matchScore && mentor.matchScore >= 90}
                 onViewProfile={() => navigate(`/mentora/${mentor.id}`)}
                 onBook={() => navigate(`/booking/${mentor.id}`)}

@@ -5,8 +5,36 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { MentorCard } from '@/components/MentorCard';
 import { mentoras, testimonials, platformStats } from '@/data/mockData';
-import { ArrowRight, Sparkles, Users, Calendar, Target, CheckCircle, Quote, ChevronDown, Brain, Lightbulb, Rocket, Globe, Award, TrendingUp } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  ArrowRight,
+  Sparkles,
+  Users,
+  Calendar,
+  Target,
+  CheckCircle,
+  Quote,
+  ChevronDown,
+  Brain,
+  Lightbulb,
+  Rocket,
+  Globe,
+  Award,
+  TrendingUp,
+} from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const steps = [{
@@ -94,7 +122,7 @@ const LandingPage: React.FC = () => {
                 <p className="text-sm text-muted-foreground">Mentoras activas</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-foreground">{(platformStats.sessionsCompleted / 1000).toFixed(1)}k+</p>
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{(platformStats.sessionsCompleted)}+</p>
                 <p className="text-sm text-muted-foreground">Sesiones completadas</p>
               </div>
               <div className="text-center">
@@ -239,8 +267,30 @@ const LandingPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mentoras.slice(0, 3).map(mentora => <MentorCard key={mentora.id} {...mentora} isRecommended={mentora.matchScore && mentora.matchScore >= 90} onViewProfile={() => navigate(`/mentora/${mentora.id}`)} onBook={() => navigate(`/booking/${mentora.id}`)} />)}
+          <div className="relative px-12">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4 py-4">
+                {mentoras.map((mentora) => (
+                  <CarouselItem key={mentora.id} className="md:basis-1/2 lg:basis-1/3 py-2">
+                    <MentorCard
+                      {...mentora}
+                      className="h-full"
+                      isRecommended={mentora.matchScore !== undefined && mentora.matchScore >= 90}
+                      onViewProfile={() => navigate(`/mentora/${mentora.id}`)}
+                      onBook={() => navigate(`/booking/${mentora.id}`)}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="-left-4" />
+              <CarouselNext className="-right-4" />
+            </Carousel>
           </div>
 
           <div className="text-center mt-10">

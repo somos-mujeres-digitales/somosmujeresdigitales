@@ -45,9 +45,11 @@ const LoginPage: React.FC = () => {
         <div className="w-full max-w-md">
           <div className="bg-card rounded-2xl border border-border p-8 shadow-lg animate-scale-in">
             <div className="text-center mb-8">
-              <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-foreground font-bold text-lg">MD</span>
-              </div>
+              <img 
+                src="/mujeresdigitales.jpg" 
+                alt="Logo" 
+                className="h-12 w-12 rounded-xl object-cover mx-auto mb-4 shadow-md"
+              />
               <h1 className="text-2xl font-bold text-foreground mb-2">
                 Bienvenida de vuelta
               </h1>

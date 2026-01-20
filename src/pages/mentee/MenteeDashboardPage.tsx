@@ -103,12 +103,15 @@ const MenteeDashboardPage: React.FC = () => {
                     Tu mejor match recomendado
                   </h2>
                 </div>
-                <MentorCard
-                  {...recommendedMentors[2]}
-                  isRecommended
-                  onViewProfile={() => navigate(`/mentora/${recommendedMentors[2].id}`)}
-                  onBook={() => navigate(`/booking/${recommendedMentors[2].id}`)}
-                />
+                <div className="py-2">
+                  <MentorCard
+                    {...recommendedMentors[2]}
+                    className="h-full"
+                    isRecommended
+                    onViewProfile={() => navigate(`/mentora/${recommendedMentors[2].id}`)}
+                    onBook={() => navigate(`/booking/${recommendedMentors[2].id}`)}
+                  />
+                </div>
               </div>
 
               {/* Recommended Mentors */}
@@ -127,6 +130,7 @@ const MenteeDashboardPage: React.FC = () => {
                     <MentorCard
                       key={mentor.id}
                       {...mentor}
+                      className="h-full"
                       onViewProfile={() => navigate(`/mentora/${mentor.id}`)}
                       onBook={() => navigate(`/booking/${mentor.id}`)}
                     />

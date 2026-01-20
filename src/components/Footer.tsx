@@ -10,22 +10,24 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">MD</span>
-              </div>
+              <img 
+                src="/mujeresdigitales.jpg" 
+                alt="Logo" 
+                className="h-8 w-8 rounded-lg object-cover"
+              />
               <span className="font-semibold text-lg">Mujeres Digitales</span>
             </div>
             <p className="text-primary-foreground/70 text-sm mb-4">
               Conectando mujeres con mentoras STEM para decisiones informadas y carreras exitosas.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+              <a href="https://linkedin.com/company/somos-mujeresdigitales/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
               <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+              <a href="https://www.instagram.com/somosmujeresdigitales/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -66,7 +68,7 @@ export const Footer: React.FC = () => {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-primary-foreground/70">
-            © 2024 Mujeres Digitales. Todos los derechos reservados.
+            © 2026 Mujeres Digitales. Todos los derechos reservados.
           </p>
           <p className="text-sm text-primary-foreground/70 flex items-center gap-1">
             Hecho con <Heart className="h-4 w-4 text-destructive fill-destructive" /> para mujeres en STEM

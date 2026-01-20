@@ -76,7 +76,7 @@ const MentoraDashboardPage: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <Clock className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <p className="font-medium">María López</p>
+                      <p className="font-medium">Marwía López</p>
                       <p className="text-sm text-muted-foreground">Mañana, 10:00</p>
                     </div>
                   </div>
