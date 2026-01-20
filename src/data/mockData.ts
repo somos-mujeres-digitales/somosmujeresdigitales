@@ -1,6 +1,6 @@
-import mentora1 from '@/assets/mentora-1.jpg';
-import mentora2 from '@/assets/mentora-2.jpg';
-import mentora3 from '@/assets/mentora-3.jpg';
+import mentora1 from '@/assets/mentora-real-1.png';
+import mentora2 from '@/assets/mentora-real-2.png';
+import mentora3 from '@/assets/mentora-real-3.png';
 import mentora4 from '@/assets/mentora-4.jpg';
 import mentora5 from '@/assets/mentora-5.jpg';
 import mentora6 from '@/assets/mentora-6.jpg';
@@ -60,8 +60,8 @@ export const mentoras: Mentora[] = [
     name: 'María García',
     title: 'Ingeniera de Software Senior',
     company: 'Google',
-    location: 'Ciudad de México',
-    country: 'México',
+    location: 'Lima',
+    country: 'Perú',
     imageUrl: mentora1,
     bio: 'Apasionada por ayudar a mujeres a iniciar su carrera en tecnología. 10 años de experiencia en desarrollo de software y liderazgo de equipos.',
     skills: ['Desarrollo de carrera', 'Liderazgo', 'Entrevistas técnicas', 'Mentoría'],
@@ -81,8 +81,8 @@ export const mentoras: Mentora[] = [
     name: 'Ana Rodríguez',
     title: 'Ingeniera de Robótica Senior',
     company: 'Boston Dynamics',
-    location: 'Boston',
-    country: 'Estados Unidos',
+    location: 'Lima',
+    country: 'Perú',
     imageUrl: mentora2,
     bio: 'Ingeniera mecatrónica con pasión por la robótica y la automatización. Mentora de mujeres en ingeniería por más de 5 años.',
     skills: ['Robótica', 'Automatización', 'Transición a STEM', 'Becas'],
