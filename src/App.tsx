@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 // Pages
 import LandingPage from "./pages/LandingPage";
+import ParaMenteesPage from "./pages/ParaMenteesPage";
+import ParaMentorasPage from "./pages/ParaMentorasPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
@@ -31,8 +33,8 @@ const App = () => (
           <Routes>
             {/* Public */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/para-mentees" element={<LandingPage />} />
-            <Route path="/para-mentoras" element={<LandingPage />} />
+            <Route path="/para-mentees" element={<ParaMenteesPage />} />
+            <Route path="/para-mentoras" element={<ParaMentorasPage />} />
             <Route path="/recursos" element={<LandingPage />} />
             
             {/* Auth */}
