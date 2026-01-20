@@ -41,15 +41,21 @@ export const MentorCard: React.FC<MentorCardProps> = ({
   return (
     <div
       className={cn(
-        'group relative bg-card rounded-xl border border-border p-5 pt-7 card-hover flex flex-col',
+        'group relative bg-card rounded-xl border border-border p-5 pt-7 pr-14 card-hover flex flex-col',
         isRecommended && 'ring-2 ring-primary/20',
         className
       )}
     >
       {isRecommended && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 bg-gradient-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg border border-white/20">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 bg-gradient-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg border border-white/20 whitespace-nowrap">
           <Sparkles className="h-3 w-3" />
           Recomendación IA
+        </div>
+      )}
+
+      {matchScore && (
+        <div className="absolute top-4 right-4 z-10 shadow-sm border border-border/40 rounded-full bg-background overflow-hidden">
+          <MatchScoreBadge score={matchScore} size="sm" showLabel={false} />
         </div>
       )}
 
@@ -60,11 +66,6 @@ export const MentorCard: React.FC<MentorCardProps> = ({
             alt={name}
             className="h-20 w-20 rounded-2xl object-cover shadow-sm bg-muted border border-border/50"
           />
-          {matchScore && (
-            <div className="absolute -top-1.5 -right-1.5 shadow-md rounded-full border border-white/40">
-              <MatchScoreBadge score={matchScore} size="sm" showLabel={false} />
-            </div>
-          )}
         </div>
 
         <div className="flex-1 min-w-0">
