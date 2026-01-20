@@ -1,9 +1,9 @@
 import mentora1 from '@/assets/mentora-real-1.png';
 import mentora2 from '@/assets/mentora-real-2.png';
 import mentora3 from '@/assets/mentora-real-3.png';
-import mentora4 from '@/assets/mentora-4.jpg';
-import mentora5 from '@/assets/mentora-5.jpg';
-import mentora6 from '@/assets/mentora-6.jpg';
+import mentora4 from '@/assets/mentora-real-4.png';
+import mentora5 from '@/assets/mentora-real-5.png';
+import mentora6 from '@/assets/mentora-real-6.png';
 
 export interface Mentora {
   id: string;
@@ -79,14 +79,14 @@ export const mentoras: Mentora[] = [
   {
     id: '2',
     name: 'Ana Rodríguez',
-    title: 'Ingeniera de Robótica Senior',
-    company: 'Boston Dynamics',
+    title: 'Product Manager Senior',
+    company: 'Yape BCP',
     location: 'Lima',
     country: 'Perú',
     imageUrl: mentora2,
-    bio: 'Ingeniera mecatrónica con pasión por la robótica y la automatización. Mentora de mujeres en ingeniería por más de 5 años.',
-    skills: ['Robótica', 'Automatización', 'Transición a STEM', 'Becas'],
-    specialties: ['Mecatrónica', 'Control', 'IA aplicada'],
+    bio: 'Ingeniera con pasión por la tecnología financiera y productos digitales. Mentora de mujeres en tech por más de 5 años.',
+    skills: ['Product Management', 'Fintech', 'Transición a STEM', 'Liderazgo'],
+    specialties: ['Productos digitales', 'UX', 'Estrategia'],
     rating: 4.8,
     reviewCount: 89,
     sessionsCompleted: 156,
@@ -121,14 +121,14 @@ export const mentoras: Mentora[] = [
   {
     id: '4',
     name: 'Carmen Torres',
-    title: 'Ingeniera Aeroespacial',
-    company: 'NASA',
-    location: 'Houston',
-    country: 'Estados Unidos',
+    title: 'Gerente de Tecnología',
+    company: 'Interbank',
+    location: 'Lima',
+    country: 'Perú',
     imageUrl: mentora4,
-    bio: 'Primera ingeniera latina en mi equipo de la NASA. Ayudo a jóvenes a alcanzar sus sueños en ciencia e ingeniería.',
-    skills: ['Ingeniería', 'Becas internacionales', 'Liderazgo', 'Investigación'],
-    specialties: ['Aeroespacial', 'Propulsión', 'Sistemas'],
+    bio: 'Líder en transformación digital en el sector bancario. Ayudo a jóvenes a alcanzar sus sueños en tecnología financiera.',
+    skills: ['Transformación Digital', 'Liderazgo', 'Banca Digital', 'Innovación'],
+    specialties: ['Fintech', 'Arquitectura', 'Gestión'],
     rating: 5.0,
     reviewCount: 67,
     sessionsCompleted: 98,
@@ -143,18 +143,18 @@ export const mentoras: Mentora[] = [
     id: '5',
     name: 'Isabella Vargas',
     title: 'Especialista en Ciberseguridad',
-    company: 'IBM',
-    location: 'Londres',
-    country: 'Reino Unido',
+    company: 'Globant',
+    location: 'Lima',
+    country: 'Perú',
     imageUrl: mentora5,
-    bio: 'Experta en seguridad informática con experiencia en empresas Fortune 500. Mentora activa en comunidades de mujeres en tech.',
+    bio: 'Experta en seguridad informática con experiencia en empresas multinacionales. Mentora activa en comunidades de mujeres en tech.',
     skills: ['Ciberseguridad', 'Desarrollo de carrera', 'Certificaciones', 'Networking'],
     specialties: ['Security', 'Pentesting', 'Compliance'],
     rating: 4.7,
     reviewCount: 145,
     sessionsCompleted: 189,
     yearsExperience: 9,
-    languages: ['Español', 'Inglés', 'Francés'],
+    languages: ['Español', 'Inglés'],
     availability: ['Martes', 'Jueves'],
     pricePerSession: 29,
     matchScore: 79,
@@ -163,14 +163,14 @@ export const mentoras: Mentora[] = [
   {
     id: '6',
     name: 'Valentina Ruiz',
-    title: 'Ingeniera Biomédica',
-    company: 'Johnson & Johnson',
-    location: 'Bogotá',
-    country: 'Colombia',
+    title: 'Data Engineer Senior',
+    company: 'Rappi',
+    location: 'Lima',
+    country: 'Perú',
     imageUrl: mentora6,
-    bio: 'Ingeniera biomédica enfocada en dispositivos médicos. Apasionada por inspirar a más mujeres en ciencias de la salud.',
-    skills: ['Bioingeniería', 'Investigación', 'Transición a STEM', 'Innovación'],
-    specialties: ['Dispositivos médicos', 'Biomateriales', 'Regulatorio'],
+    bio: 'Ingeniera de datos enfocada en soluciones escalables. Apasionada por inspirar a más mujeres en ciencias de datos.',
+    skills: ['Data Engineering', 'Cloud', 'Transición a STEM', 'Python'],
+    specialties: ['Big Data', 'AWS', 'ETL'],
     rating: 4.8,
     reviewCount: 92,
     sessionsCompleted: 134,
