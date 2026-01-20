@@ -272,7 +272,7 @@ const LandingPage: React.FC = () => {
             </div>
             <div className="dashboard-card text-center card-hover">
               <Award className="h-8 w-8 text-primary mx-auto mb-3" />
-              <p className="text-3xl font-bold text-foreground mb-1">847</p>
+              <p className="text-3xl font-bold text-foreground mb-1">20</p>
               <p className="text-sm text-muted-foreground">Mentoras certificadas</p>
             </div>
             <div className="dashboard-card text-center card-hover">
