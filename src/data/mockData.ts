@@ -215,7 +215,7 @@ export const testimonials = [
 
 export const platformStats = {
   mentorsActive: 20,
-  sessionsCompleted: 12453,
+  sessionsCompleted: 100,
   countriesReached: 23,
   satisfactionRate: 98,
 };

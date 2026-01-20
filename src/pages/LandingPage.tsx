@@ -134,7 +134,7 @@ const LandingPage: React.FC = () => {
                 <p className="text-sm text-muted-foreground">Mentoras activas</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-foreground">{(platformStats.sessionsCompleted / 1000).toFixed(1)}k+</p>
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.sessionsCompleted}+</p>
                 <p className="text-sm text-muted-foreground">Sesiones completadas</p>
               </div>
               <div className="text-center">
