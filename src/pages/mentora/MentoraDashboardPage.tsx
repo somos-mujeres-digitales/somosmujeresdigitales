@@ -83,8 +83,8 @@ const MentoraDashboardPage: React.FC = () => {
                           {s.date}, {s.time}
                         </p>
                       </div>
-                      <Button size="sm" variant="outline" onClick={() => navigate(`/session/${s.id}`)}>
-                        Ver / Unirse
+                      <Button size="sm" variant="outline" onClick={() => navigate('/mentora/dashboard')}>
+                        Ver detalles
                       </Button>
                     </div>
                   ))}
@@ -144,8 +144,8 @@ const MentoraDashboardPage: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" onClick={() => navigate(`/session/${s.id}`)}>
-                      Ver
+                    <Button size="sm" variant="outline" onClick={() => navigate('/mentora/dashboard')}>
+                      Ver detalles
                     </Button>
                   </div>
                 ))}
