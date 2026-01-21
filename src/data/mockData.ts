@@ -163,7 +163,6 @@ export const mentoras: Mentora[] = [
     sessionsCompleted: 189,
     yearsExperience: 9,
     languages: ['Español', 'Inglés'],
-    languages: ['Español', 'Inglés'],
     availability: ['Martes', 'Jueves'],
     pricePerSession: 29,
     matchScore: 79,

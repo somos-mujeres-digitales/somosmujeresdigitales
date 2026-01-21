@@ -14,6 +14,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import MenteeOnboardingPage from "./pages/mentee/MenteeOnboardingPage";
+import MentoraOnboardingPage from "./pages/mentora/MentoraOnboardingPage";
 import MenteeDashboardPage from "./pages/mentee/MenteeDashboardPage";
 import MatchingPage from "./pages/mentee/MatchingPage";
 import MentoraProfilePage from "./pages/mentee/MentoraProfilePage";
@@ -51,7 +52,7 @@ const App = () => (
             <Route path="/booking/:id" element={<BookingPage />} />
             
             {/* Mentora */}
-            <Route path="/mentora/onboarding" element={<MenteeOnboardingPage />} />
+            <Route path="/mentora/onboarding" element={<MentoraOnboardingPage />} />
             <Route path="/mentora/dashboard" element={<MentoraDashboardPage />} />
             
             {/* Admin */}
