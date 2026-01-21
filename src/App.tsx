@@ -19,6 +19,7 @@ import MenteeDashboardPage from "./pages/mentee/MenteeDashboardPage";
 import MatchingPage from "./pages/mentee/MatchingPage";
 import MentoraProfilePage from "./pages/mentee/MentoraProfilePage";
 import BookingPage from "./pages/mentee/BookingPage";
+import SessionRoomPage from "./pages/mentee/SessionRoomPage";
 import MentoraDashboardPage from "./pages/mentora/MentoraDashboardPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import NotFound from "./pages/NotFound";
@@ -47,6 +48,7 @@ const App = () => (
             {/* Mentee */}
             <Route path="/mentee/onboarding" element={<MenteeOnboardingPage />} />
             <Route path="/mentee/dashboard" element={<MenteeDashboardPage />} />
+            <Route path="/session/:id" element={<SessionRoomPage />} />
             <Route path="/matching" element={<MatchingPage />} />
             <Route path="/mentora/:id" element={<MentoraProfilePage />} />
             <Route path="/booking/:id" element={<BookingPage />} />

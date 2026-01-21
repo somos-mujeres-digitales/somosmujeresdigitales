@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -8,14 +8,46 @@ import { mentoras } from '@/data/mockData';
 import { useAuth } from '@/contexts/AuthContext';
 import { Calendar, DollarSign, Star, Clock, Users, TrendingUp, CheckCircle } from 'lucide-react';
 
+type DashboardSession = {
+  id: string;
+  mentorName: string;
+  mentorImage: string;
+  mentorTitle: string;
+  menteeId?: string;
+  menteeName?: string;
+  date: string;
+  time: string;
+  status: 'upcoming' | 'completed' | 'cancelled';
+};
+
 const MentoraDashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const pendingRequests = [
-    { id: '1', name: 'Sofía Martínez', objective: 'Transición a Tech', matchScore: 89 },
-    { id: '2', name: 'Camila Herrera', objective: 'Decidir carrera', matchScore: 92 },
-  ];
+  const [upcomingSessions, setUpcomingSessions] = useState<DashboardSession[]>([]);
+  const [completedSessions, setCompletedSessions] = useState<DashboardSession[]>([]);
+
+  useEffect(() => {
+    try {
+      if (typeof window === 'undefined') return;
+      const raw = window.localStorage.getItem('smd_sessions');
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as DashboardSession[];
+      if (!Array.isArray(parsed)) return;
+      const upcoming = parsed.filter((s) => s.status === 'upcoming');
+      const completed = parsed.filter((s) => s.status === 'completed');
+      setUpcomingSessions(upcoming);
+      setCompletedSessions(completed);
+    } catch (error) {
+      console.error('No se pudieron cargar las sesiones desde localStorage', error);
+    }
+  }, []);
+
+  const sessionsThisMonth = upcomingSessions.length + completedSessions.length;
+  const payoutUsd = (completedSessions.length * 29 * 0.6).toFixed(0);
+  const activeMentees = new Set(
+    [...upcomingSessions, ...completedSessions].map((s) => s.menteeId || s.menteeName || 'mentee')
+  ).size;
 
   return (
     <div className="min-h-screen bg-background">
@@ -30,60 +62,99 @@ const MentoraDashboardPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-4 gap-4 mb-8">
-            <StatCard title="Sesiones este mes" value={12} icon={Calendar} trend={{ value: 20, isPositive: true }} />
-            <StatCard title="Ingresos (60%)" value="$208" icon={DollarSign} subtitle="USD este mes" />
+            <StatCard title="Sesiones este mes" value={sessionsThisMonth} icon={Calendar} />
+            <StatCard title="Ingresos (60%)" value={`$${payoutUsd}`} icon={DollarSign} subtitle="USD este mes" />
             <StatCard title="Rating promedio" value="4.9" icon={Star} />
-            <StatCard title="Mentees activas" value={8} icon={Users} />
+            <StatCard title="Mentees activas" value={activeMentees} icon={Users} />
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6">
             <div className="dashboard-card">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" /> Solicitudes pendientes
+                <Users className="h-5 w-5 text-primary" /> Reservas confirmadas
               </h2>
-              <div className="space-y-3">
-                {pendingRequests.map((req) => (
-                  <div key={req.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                    <div>
-                      <p className="font-medium">{req.name}</p>
-                      <p className="text-sm text-muted-foreground">{req.objective}</p>
+              {upcomingSessions.length > 0 ? (
+                <div className="space-y-3">
+                  {upcomingSessions.map((s) => (
+                    <div key={s.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
+                      <div>
+                        <p className="font-medium">{s.menteeName || 'Mentee'}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {s.date}, {s.time}
+                        </p>
+                      </div>
+                      <Button size="sm" variant="outline" onClick={() => navigate(`/session/${s.id}`)}>
+                        Ver / Unirse
+                      </Button>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-success font-medium">{req.matchScore}% match</span>
-                      <Button size="sm">Aceptar</Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-6 bg-muted rounded-lg text-center text-sm text-muted-foreground">
+                  Aún no tienes reservas confirmadas. Cuando una mentee pague una sesión, aparecerá aquí.
+                </div>
+              )}
             </div>
 
             <div className="dashboard-card">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-primary" /> Próximas sesiones
               </h2>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Clock className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="font-medium">Ana Rodríguez</p>
-                      <p className="text-sm text-muted-foreground">Hoy, 15:00</p>
+              {upcomingSessions.length > 0 ? (
+                <div className="space-y-3">
+                  {upcomingSessions.map((session) => (
+                    <div key={session.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <Clock className="h-5 w-5 text-muted-foreground" />
+                        <div>
+                          <p className="font-medium">Sesión con {session.menteeName || 'mentee'}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {session.date}, {session.time}
+                          </p>
+                        </div>
+                      </div>
+                      <Button size="sm" variant="outline" onClick={() => navigate(`/session/${session.id}`)}>
+                        Unirse
+                      </Button>
                     </div>
-                  </div>
-                  <Button size="sm" variant="outline">Unirse</Button>
+                  ))}
                 </div>
-                <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Clock className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="font-medium">Marwía López</p>
-                      <p className="text-sm text-muted-foreground">Mañana, 10:00</p>
-                    </div>
-                  </div>
-                  <Button size="sm" variant="outline">Ver detalles</Button>
+              ) : (
+                <div className="p-6 bg-muted rounded-lg text-center text-sm text-muted-foreground">
+                  Aún no tienes sesiones confirmadas. Cuando una mentee reserve y pague, aparecerán aquí.
                 </div>
-              </div>
+              )}
             </div>
+          </div>
+
+          <div className="mt-6 dashboard-card">
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-primary" /> Historial reciente
+            </h2>
+            {completedSessions.length > 0 ? (
+              <div className="space-y-3">
+                {completedSessions.map((s) => (
+                  <div key={s.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">Sesión con {s.menteeName || 'mentee'}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {s.date}, {s.time}
+                        </p>
+                      </div>
+                    </div>
+                    <Button size="sm" variant="outline" onClick={() => navigate(`/session/${s.id}`)}>
+                      Ver
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-6 bg-muted rounded-lg text-center text-sm text-muted-foreground">
+                Aún no has completado sesiones.
+              </div>
+            )}
           </div>
         </div>
       </main>

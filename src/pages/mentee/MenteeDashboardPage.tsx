@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -19,33 +19,40 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
+type DashboardSession = {
+  id: string;
+  mentorName: string;
+  mentorImage: string;
+  mentorTitle: string;
+  menteeId?: string;
+  menteeName?: string;
+  date: string;
+  time: string;
+  status: 'upcoming' | 'completed' | 'cancelled';
+};
+
 const MenteeDashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const upcomingSessions = [
-    {
-      id: '1',
-      mentorName: 'María García',
-      mentorImage: mentoras[0].imageUrl,
-      mentorTitle: 'Ingeniera de Software Senior',
-      date: '22 Enero 2026',
-      time: '15:00 - 16:00',
-      status: 'upcoming' as const,
-    },
-  ];
+  const [upcomingSessions, setUpcomingSessions] = useState<DashboardSession[]>([]);
+  const [completedSessions, setCompletedSessions] = useState<DashboardSession[]>([]);
 
-  const completedSessions = [
-    {
-      id: '2',
-      mentorName: 'Lucía Mendoza',
-      mentorImage: mentoras[2].imageUrl,
-      mentorTitle: 'Data Scientist Lead',
-      date: '15 Enero 2026',
-      time: '10:00 - 11:00',
-      status: 'completed' as const,
-    },
-  ];
+  useEffect(() => {
+    try {
+      if (typeof window === 'undefined') return;
+      const raw = window.localStorage.getItem('smd_sessions');
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as DashboardSession[];
+      if (!Array.isArray(parsed)) return;
+      const upcoming = parsed.filter((s) => s.status === 'upcoming');
+      const completed = parsed.filter((s) => s.status === 'completed');
+      setUpcomingSessions(upcoming);
+      setCompletedSessions(completed);
+    } catch (error) {
+      console.error('No se pudieron cargar las sesiones desde localStorage', error);
+    }
+  }, []);
 
   const recommendedMentors = mentoras.slice(0, 3);
 
@@ -145,7 +152,7 @@ const MenteeDashboardPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <StatCard
                   title="Sesiones"
-                  value={3}
+                  value={completedSessions.length}
                   subtitle="completadas"
                   icon={Calendar}
                 />
@@ -166,7 +173,7 @@ const MenteeDashboardPage: React.FC = () => {
                 {upcomingSessions.length > 0 ? (
                   <SessionCard
                     {...upcomingSessions[0]}
-                    onJoin={() => alert('Unirse a la sesión')}
+                    onJoin={() => navigate(`/session/${upcomingSessions[0].id}`)}
                     onReschedule={() => alert('Reagendar')}
                   />
                 ) : (
@@ -187,15 +194,24 @@ const MenteeDashboardPage: React.FC = () => {
                 <h3 className="text-sm font-medium text-foreground mb-3">
                   Historial reciente
                 </h3>
-                <div className="space-y-3">
-                  {completedSessions.map((session) => (
-                    <SessionCard
-                      key={session.id}
-                      {...session}
-                      onViewDetails={() => alert('Ver detalles')}
-                    />
-                  ))}
-                </div>
+                {completedSessions.length > 0 ? (
+                  <div className="space-y-3">
+                    {completedSessions.map((session) => (
+                      <SessionCard
+                        key={session.id}
+                        {...session}
+                        onViewDetails={() => alert('Ver detalles')}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="dashboard-card text-center py-6">
+                    <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">
+                      Aún no has completado ninguna sesión
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Quick Actions */}
