@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Users, Heart, Star, Award, Gift, ChevronDown, ExternalLink, MessageCircle, Mail, Instagram, Facebook } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Calendar, ChevronDown, ExternalLink, MessageCircle, Mail, Star, Award, Menu, X, Users, BookOpen, Trophy, Building2, Instagram } from "lucide-react";
 import heroBg from "@/assets/reto-steam-hero-bg.jpg";
 import logoMD from "@/assets/reto-steam-logo-md.png";
 import logoCite from "@/assets/reto-steam-logo-cite.png";
@@ -18,31 +18,127 @@ const STEAM_COLORS = {
   lavender: "#C4B5FD",
 };
 
-/* ───────── tiny components ───────── */
+/* ───────── animated counter ───────── */
+function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
 
-const SectionTitle = ({ children, accent = STEAM_COLORS.lavender }: { children: React.ReactNode; accent?: string }) => (
-  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-    <span style={{ color: accent }}>— </span>{children}
-  </h2>
-);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const duration = 1500;
+          const steps = 40;
+          const increment = target / steps;
+          let current = 0;
+          const interval = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              setCount(target);
+              clearInterval(interval);
+            } else {
+              setCount(Math.floor(current));
+            }
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
 
-const StationCard = ({ icon: Icon, color, title, idx }: { icon: any; color: string; title: string; idx: number }) => (
-  <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
-    <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ backgroundColor: color + "22", color }}>
-      <Icon size={28} />
-    </div>
-    <span className="text-xs font-semibold uppercase tracking-widest" style={{ color }}>Estación {idx}</span>
-    <span className="text-white font-medium text-center">{title}</span>
-  </div>
-);
+  return <div ref={ref} className="text-4xl md:text-5xl font-extrabold text-white">{prefix}{count}{suffix}</div>;
+}
 
-const SponsorCard = ({ tier, price, color, benefits, waMsg }: { tier: string; price: string; color: string; benefits: string[]; waMsg: string }) => (
-  <div className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col gap-4 hover:border-white/20 transition-colors">
+/* ───────── navbar ───────── */
+function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "bg-[#0f0f14]/95 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent"}`}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+        {/* Left */}
+        <div className="flex items-center gap-3">
+          <img src={logoMD} alt="Mujeres Digitales" className="h-8 md:h-10 object-contain" />
+          <span className="text-white font-bold text-sm md:text-base hidden sm:inline">Reto STEAM Cusco</span>
+        </div>
+
+        {/* Center - desktop */}
+        <div className="hidden md:flex items-center gap-6">
+          <button onClick={() => scroll("agenda")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Agenda</button>
+          <button onClick={() => scroll("programa")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Reto STEAM 2026</button>
+        </div>
+
+        {/* Right - desktop */}
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco. ¿Cómo puedo inscribirme?")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-lg font-semibold text-sm text-white transition-transform hover:scale-105"
+            style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}
+          >
+            Postular
+          </a>
+          <button
+            onClick={() => scroll("sponsors")}
+            className="px-5 py-2 rounded-lg font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-colors"
+          >
+            Quiero ser Sponsor
+          </button>
+        </div>
+
+        {/* Mobile menu toggle */}
+        <button className="md:hidden text-white" onClick={() => setOpen(!open)}>
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="md:hidden bg-[#0f0f14]/98 backdrop-blur-xl border-t border-white/10 px-4 pb-4 space-y-3 animate-fade-in">
+          <button onClick={() => { scroll("agenda"); setOpen(false); }} className="block w-full text-left text-gray-300 py-2 text-sm">Agenda</button>
+          <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-2 text-sm">Reto STEAM 2026</button>
+          <a
+            href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full text-center px-5 py-3 rounded-lg font-semibold text-sm text-white"
+            style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}
+          >
+            Postular
+          </a>
+          <button
+            onClick={() => { scroll("sponsors"); setOpen(false); }}
+            className="block w-full text-center px-5 py-3 rounded-lg font-semibold text-sm text-white border border-white/20 bg-white/5"
+          >
+            Quiero ser Sponsor
+          </button>
+        </div>
+      )}
+    </nav>
+  );
+}
+
+/* ───────── sponsor card ───────── */
+const SponsorCard = ({ tier, price, color, benefits, waMsg, featured }: { tier: string; price: string; color: string; benefits: string[]; waMsg: string; featured?: boolean }) => (
+  <div className={`rounded-2xl border p-6 flex flex-col gap-4 transition-all hover:scale-[1.02] ${featured ? "border-2 bg-white/10 shadow-2xl" : "border-white/10 bg-white/5"}`} style={featured ? { borderColor: color } : {}}>
+    {featured && <span className="text-xs font-bold uppercase tracking-widest" style={{ color }}>⭐ Más popular</span>}
     <div className="flex items-center gap-2">
       <Award size={22} style={{ color }} />
       <h3 className="text-xl font-bold text-white">{tier}</h3>
     </div>
-    <p className="text-2xl font-bold" style={{ color }}>{price}</p>
+    <p className="text-3xl font-extrabold" style={{ color }}>{price}</p>
     <ul className="space-y-2 text-sm text-gray-300 flex-1">
       {benefits.map((b, i) => (
         <li key={i} className="flex gap-2 items-start">
@@ -63,65 +159,71 @@ const SponsorCard = ({ tier, price, color, benefits, waMsg }: { tier: string; pr
   </div>
 );
 
+/* ───────── station card ───────── */
+const StationCard = ({ icon: Icon, color, title, desc }: { icon: any; color: string; title: string; desc: string }) => (
+  <div className="group bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center gap-3 hover:bg-white/10 hover:border-white/20 hover:scale-[1.03] transition-all duration-300 cursor-default">
+    <div className="w-16 h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110" style={{ backgroundColor: color + "22", color }}>
+      <Icon size={32} />
+    </div>
+    <span className="text-white font-bold text-center text-lg">{title}</span>
+    <span className="text-gray-400 text-sm text-center">{desc}</span>
+  </div>
+);
+
 /* ───────── main page ───────── */
-
 export default function RetoSteamCuscoPage() {
-  const [donationAmount, setDonationAmount] = useState<number | null>(50);
-  const [customAmount, setCustomAmount] = useState("");
-
   const scroll = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen bg-[#0f0f14] text-gray-100 font-sans">
-      {/* ─── STICKY MOBILE BAR ─── */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-white/10 bg-[#0f0f14]/95 backdrop-blur-md">
-        <button onClick={() => scroll("sponsors")} className="flex-1 py-3 text-sm font-semibold" style={{ color: STEAM_COLORS.orange }}>
-          🤝 Sponsor
-        </button>
-        <button onClick={() => scroll("donar")} className="flex-1 py-3 text-sm font-semibold" style={{ color: STEAM_COLORS.pink }}>
-          💜 Donar
-        </button>
-      </div>
+      <SteamNavbar scroll={scroll} />
 
-      {/* ═══════════════ 1. HERO ═══════════════ */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f14]/60 via-[#0f0f14]/40 to-[#0f0f14]" />
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f14]/30 via-[#0f0f14]/50 to-[#0f0f14]" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-5 text-center py-24">
-          <div className="flex justify-center gap-4 mb-8">
-            <img src={logoMD} alt="Mujeres Digitales" className="h-14 md:h-20 object-contain" />
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            <span className="text-white">Mujeres Digitales – </span>
-            <span className="bg-gradient-to-r from-[#F97316] via-[#A855F7] to-[#06B6D4] bg-clip-text text-transparent">
-              Reto STEAM 2026
-            </span>
+        <div className="relative z-10 max-w-4xl mx-auto px-5 text-center pt-32 pb-24">
+          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+            <span className="text-white">Reto </span>
+            <span className="bg-gradient-to-r from-[#F97316] via-[#A855F7] to-[#06B6D4] bg-clip-text text-transparent">STEAM</span>
+            <span className="text-white"> 2026</span>
             <br />
-            <span className="text-white text-3xl md:text-5xl">(Cusco)</span>
+            <span className="text-white text-4xl md:text-6xl">Cusco</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-6">
-            Experiencia inmersiva de 1 día para potenciar ciencia, tecnología, innovación, creatividad y liderazgo en adolescentes y jóvenes mujeres.
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Un viaje exploratorio por laboratorios tecnológicos y espacios de innovación donde las futuras líderes en tecnología y ciencia comienzan a construir su camino.
           </p>
 
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-5 py-2 text-sm mb-10 border border-white/10">
-            <img src={logoCite} alt="CITE" className="h-6 object-contain" />
-            <span className="text-gray-300">In partnership with: <strong className="text-white">CITE Textil Camélidos Cusco</strong> (Sede principal)</span>
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-5 py-2 text-sm border border-white/10">
+              <Calendar size={16} style={{ color: STEAM_COLORS.orange }} />
+              <span className="text-white font-medium">Viernes 06 de marzo</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-5 py-2 text-sm border border-white/10">
+              <MapPin size={16} style={{ color: STEAM_COLORS.cyan }} />
+              <span className="text-white font-medium">Cusco / Perú</span>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button onClick={() => scroll("sponsors")} className="px-8 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}>
-              🤝 Quiero ser Sponsor
-            </button>
-            <button onClick={() => scroll("donar")} className="px-8 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105 bg-[#EC4899]">
-              💜 Donar
-            </button>
-            <button onClick={() => scroll("agenda")} className="px-8 py-4 rounded-xl font-bold text-lg transition-transform hover:scale-105 bg-white/10 border border-white/20 text-white backdrop-blur">
-              📋 Ver Agenda
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco. ¿Cómo puedo inscribirme?")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105"
+              style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}
+            >
+              👉 Postular
+            </a>
+            <button
+              onClick={() => scroll("sponsors")}
+              className="px-10 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105 border-2 border-white/20 bg-white/5 backdrop-blur"
+            >
+              👉 Quiero ser Sponsor
             </button>
           </div>
         </div>
@@ -129,139 +231,177 @@ export default function RetoSteamCuscoPage() {
         <ChevronDown size={32} className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce hidden md:block" />
       </section>
 
-      {/* ═══════════════ 2. SOBRE MUJERES DIGITALES ═══════════════ */}
+      {/* ═══════════════ LOGOS / ORGANIZA ═══════════════ */}
       <section className="py-20 px-5">
-        <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle accent={STEAM_COLORS.purple}>Sobre Mujeres Digitales</SectionTitle>
-          <p className="text-gray-300 text-lg leading-relaxed mb-6">
-            Organización acreditada por el <strong className="text-white">Ministerio de la Mujer y Poblaciones Vulnerables (MIMP)</strong> y con respaldo de la <strong className="text-white">Secretaría Nacional de Organizaciones Juveniles (SENAJU)</strong>. 
-            Actuamos en la región Cusco y sur del Perú impulsando tecnología, STEAM y emprendimiento tecnológico en mujeres y adolescentes.
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Organiza</p>
+          <img src={logoMD} alt="Mujeres Digitales" className="h-16 md:h-20 mx-auto mb-10 object-contain" />
+
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Partner Oficial y Sede Principal</p>
+          <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-14 md:h-16 mx-auto mb-4 object-contain" />
+          <p className="text-gray-400 max-w-lg mx-auto mb-12">
+            Gracias a su liderazgo en innovación y transferencia tecnológica, este programa se desarrolla en sus espacios especializados.
           </p>
-          <p className="text-gray-400 mb-8">
-            Formamos talento femenino en tecnología y STEAM. A través de programas formativos, mentorías y experiencias inmersivas, buscamos reducir brechas de género y construir una nueva generación de mujeres en tecnologías.
-          </p>
-          <a href="https://www.somosmujeresdigitales.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold hover:underline" style={{ color: STEAM_COLORS.lavender }}>
-            Conoce más <ExternalLink size={14} />
-          </a>
-        </div>
-      </section>
 
-      {/* ═══════════════ 3. ¿QUÉ ES EL RETO STEAM? ═══════════════ */}
-      <section className="py-20 px-5 bg-white/[0.02]">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <SectionTitle accent={STEAM_COLORS.cyan}>¿Qué es el Reto STEAM 2026?</SectionTitle>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              Programa inmersivo de <strong className="text-white">un día</strong> diseñado para potenciar habilidades en ciencia, tecnología, innovación, creatividad y liderazgo en adolescentes y jóvenes mujeres de la región Cusco.
-            </p>
-            <p className="text-gray-300 leading-relaxed mb-6">
-              A través de una pasantía experiencial en los laboratorios del CITE Textil Camélidos, las participantes explorarán <strong className="text-white">5 áreas STEAM</strong> acompañadas de mentoras y expertas.
-            </p>
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F97316]/10 to-[#06B6D4]/10 border border-white/10 rounded-xl px-5 py-3 text-lg font-bold text-white">
-              🔬 5 Estaciones STEAM
-            </div>
-          </div>
-          <div className="rounded-2xl overflow-hidden border border-white/10">
-            <img src={citeLab} alt="Laboratorios CITE" className="w-full h-64 md:h-80 object-cover" />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ 4. DETALLES DEL PROGRAMA ═══════════════ */}
-      <section className="py-20 px-5">
-        <div className="max-w-5xl mx-auto">
-          <SectionTitle accent={STEAM_COLORS.green}>Detalles del Programa</SectionTitle>
-
-          <div className="flex flex-wrap gap-4 mb-12">
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-5 py-3">
-              <MapPin size={18} style={{ color: STEAM_COLORS.orange }} />
-              <span className="text-white font-medium">CITE Textil Camélidos Cusco</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-5 py-3">
-              <Clock size={18} style={{ color: STEAM_COLORS.cyan }} />
-              <span className="text-white font-medium">9:00 a.m. – 4:30 p.m.</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <StationCard icon={Palette} color={STEAM_COLORS.orange} title="Diseño de moda" idx={1} />
-            <StationCard icon={Droplets} color={STEAM_COLORS.purple} title="Tinturación textil" idx={2} />
-            <StationCard icon={Monitor} color={STEAM_COLORS.cyan} title="Manufactura digital / software" idx={3} />
-            <StationCard icon={BarChart3} color={STEAM_COLORS.green} title="Modelo de negocio" idx={4} />
-            <StationCard icon={Globe} color={STEAM_COLORS.pink} title="Oportunidades STEAM internacionales" idx={5} />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ 5. AGENDA ═══════════════ */}
-      <section id="agenda" className="py-20 px-5 bg-white/[0.02]">
-        <div className="max-w-3xl mx-auto">
-          <SectionTitle accent={STEAM_COLORS.orange}>Agenda</SectionTitle>
-
-          <div className="space-y-0">
-            {[
-              { time: "9:00 – 9:30", label: "Registro", color: STEAM_COLORS.lavender },
-              { time: "9:30 – 9:40", label: "Bienvenida", color: STEAM_COLORS.lavender },
-              { time: "9:45 – 10:45", label: "Estación 1: Diseño de moda 🎨", color: STEAM_COLORS.orange },
-              { time: "10:45 – 11:45", label: "Estación 2: Tinturación 🌈", color: STEAM_COLORS.purple },
-              { time: "11:45 – 12:45", label: "Estación 3: Manufactura Digital / Software 💻", color: STEAM_COLORS.cyan },
-              { time: "12:45 – 2:00", label: "Break – Show teatro 🎭", color: STEAM_COLORS.lavender },
-              { time: "2:00 – 3:00", label: "Estación 4: Modelo de negocio 📊", color: STEAM_COLORS.green },
-              { time: "3:00 – 4:00", label: "Estación 5: Oportunidades STEAM Internacional 🌍", color: STEAM_COLORS.pink },
-              { time: "4:00 – 4:30", label: "Ceremonia de clausura 🎓", color: STEAM_COLORS.lavender },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-4 items-start py-4 border-b border-white/5 last:border-0">
-                <div className="w-28 md:w-36 shrink-0 text-sm font-mono font-semibold" style={{ color: item.color }}>
-                  {item.time}
-                </div>
-                <span className="text-gray-200">{item.label}</span>
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Patrocinan</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {["Caja Cusco", "Mitchell", "Sponsor 3", "Tu empresa aquí"].map((name, i) => (
+              <div key={i} className={`rounded-xl border border-white/10 py-6 px-4 flex items-center justify-center text-center ${i === 3 ? "border-dashed border-white/20 bg-white/[0.02]" : "bg-white/5"}`}>
+                <span className={`font-medium text-sm ${i === 3 ? "text-gray-500 italic" : "text-gray-300"}`}>{name}</span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ 6. PARTNER OFICIAL ═══════════════ */}
-      <section className="py-20 px-5">
-        <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle accent={STEAM_COLORS.cyan}>Partner oficial y sede principal</SectionTitle>
-          <div className="inline-block bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
-            <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-20 mx-auto mb-4 object-contain" />
-            <p className="text-gray-300 max-w-lg mx-auto">
-              Gracias al <strong className="text-white">CITE Textil Camélidos Cusco</strong> por abrir sus laboratorios y hacer posible esta experiencia inmersiva.
-            </p>
-          </div>
-          <p className="text-gray-400 mb-4">¿Tu institución también quiere sumarse como aliado?</p>
-          <a
-            href={waLink("Hola, me interesa sumarme como aliado del Reto STEAM 2026 en Cusco. ¿Me pueden dar más información?")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105"
-            style={{ backgroundColor: "#25D366" }}
+          <button
+            onClick={() => scroll("sponsors")}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105 border border-white/20 bg-white/5"
           >
-            <MessageCircle size={18} /> Conversemos por WhatsApp
-          </a>
+            👉 Convertirme en Sponsor
+          </button>
         </div>
       </section>
 
-      {/* ═══════════════ 7. SPONSORS ═══════════════ */}
+      {/* ═══════════════ PROGRAMA ═══════════════ */}
+      <section id="programa" className="py-20 px-5 bg-white/[0.02]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            <span style={{ color: STEAM_COLORS.cyan }}>— </span>¿Qué es el Reto STEAM 2026?
+          </h2>
+          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+            El Reto STEAM 2026 es una experiencia inmersiva diseñada para fortalecer habilidades en ciencia, tecnología, innovación, creatividad y liderazgo en adolescentes y jóvenes mujeres mediante estaciones exploratorias y mentoría especializada.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════════ ESTACIONES STEAM ═══════════════ */}
+      <section className="py-20 px-5">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-white text-center">
+            <span style={{ color: STEAM_COLORS.orange }}>— </span>Estaciones STEAM
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            <StationCard icon={Palette} color={STEAM_COLORS.orange} title="🎨 Diseño de Moda" desc="Creatividad aplicada al diseño textil" />
+            <StationCard icon={Droplets} color={STEAM_COLORS.purple} title="🌈 Tinturación Textil" desc="Ciencia y color en fibras naturales" />
+            <StationCard icon={Monitor} color={STEAM_COLORS.cyan} title="💻 Manufactura Digital y Software" desc="Tecnología y fabricación digital" />
+            <StationCard icon={BarChart3} color={STEAM_COLORS.green} title="📊 Modelo de Negocio" desc="Emprendimiento e innovación" />
+            <StationCard icon={Globe} color={STEAM_COLORS.pink} title="🌍 Oportunidades STEAM Internacional" desc="Becas y redes globales" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ AGENDA ═══════════════ */}
+      <section id="agenda" className="py-20 px-5 bg-white/[0.02]">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-white text-center">
+            <span style={{ color: STEAM_COLORS.orange }}>— </span>Agenda
+          </h2>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#F97316] via-[#A855F7] to-[#06B6D4]" />
+
+            {[
+              { time: "9:00 – 9:30", label: "Registro", color: STEAM_COLORS.lavender, icon: BookOpen },
+              { time: "9:30 – 9:40", label: "Bienvenida", color: STEAM_COLORS.lavender, icon: Users },
+              { time: "9:45 – 10:45", label: "Estación 1: Diseño de Moda 🎨", color: STEAM_COLORS.orange, icon: Palette },
+              { time: "10:45 – 11:45", label: "Estación 2: Tinturación 🌈", color: STEAM_COLORS.purple, icon: Droplets },
+              { time: "11:45 – 12:45", label: "Estación 3: Manufactura Digital / Software 💻", color: STEAM_COLORS.cyan, icon: Monitor },
+              { time: "12:45 – 2:00", label: "Break experiencial 🎭", color: STEAM_COLORS.lavender, icon: Star },
+              { time: "2:00 – 3:00", label: "Estación 4: Modelo de Negocio 📊", color: STEAM_COLORS.green, icon: BarChart3 },
+              { time: "3:00 – 4:00", label: "Estación 5: Oportunidades STEAM Internacional 🌍", color: STEAM_COLORS.pink, icon: Globe },
+              { time: "4:00 – 4:30", label: "Ceremonia de clausura 🎓", color: STEAM_COLORS.lavender, icon: Trophy },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4 items-start pl-4 md:pl-6 mb-6 relative">
+                <div className="w-5 h-5 rounded-full border-2 shrink-0 z-10 mt-1" style={{ borderColor: item.color, backgroundColor: "#0f0f14" }}>
+                  <div className="w-2 h-2 rounded-full mx-auto mt-[3px]" style={{ backgroundColor: item.color }} />
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl px-5 py-3 flex-1 hover:bg-white/10 transition-colors">
+                  <span className="text-xs font-mono font-semibold block mb-1" style={{ color: item.color }}>{item.time}</span>
+                  <span className="text-gray-200 font-medium">{item.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105 border border-white/20 bg-white/5"
+            >
+              👉 Ver agenda completa <ExternalLink size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ SEDE ═══════════════ */}
+      <section className="py-20 px-5">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">
+            <span style={{ color: STEAM_COLORS.green }}>— </span>Sede del Programa
+          </h2>
+          <p className="text-center text-gray-300 text-lg mb-4 font-medium">CITE Textil Camélidos Cusco</p>
+
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
+              <Clock size={16} style={{ color: STEAM_COLORS.cyan }} />
+              <span className="text-white font-medium">9:00 a.m. – 4:30 p.m.</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
+              <MapPin size={16} style={{ color: STEAM_COLORS.orange }} />
+              <span className="text-white font-medium">Cusco, Perú</span>
+            </div>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-white/10 mb-6">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.123!2d-71.9675!3d-13.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDMxJzEyLjAiUyA3McKwNTgnMDMuMCJX!5e0!3m2!1ses!2spe!4v1700000000000"
+              width="100%"
+              height="300"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="CITE Textil Camélidos Cusco"
+            />
+          </div>
+
+          <div className="text-center">
+            <a
+              href="https://www.google.com/maps/search/CITE+Textil+Camelidos+Cusco"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105"
+              style={{ backgroundColor: STEAM_COLORS.green }}
+            >
+              <MapPin size={18} /> Cómo llegar
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ SPONSORS ═══════════════ */}
       <section id="sponsors" className="py-20 px-5 bg-white/[0.02]">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle accent={STEAM_COLORS.orange}>Sponsors</SectionTitle>
-          <p className="text-gray-400 mb-10 max-w-2xl">Súmate como sponsor y deja huella en la próxima generación de mujeres en STEAM. Elige la categoría que mejor se ajuste a tu organización.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
+            <span style={{ color: STEAM_COLORS.orange }}>— </span>Sponsors
+          </h2>
+          <p className="text-gray-400 mb-10 max-w-2xl mx-auto text-center">Súmate como sponsor y deja huella en la próxima generación de mujeres en STEAM.</p>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
             <SponsorCard
               tier="Platinum STEAM"
               price="S/ 1,000"
               color={STEAM_COLORS.orange}
+              featured
               benefits={[
-                "Logos en web oficial del programa",
-                "Espacio para charla corporativa/inspiracional",
-                "2 beneficiarias recomendadas por la empresa",
-                "Reconocimiento como sponsor principal",
-                "Spotlight video 1 min para redes",
-                "Informe final con métricas + testimonios",
+                "Inclusión de logos en nuestra web oficial del programa",
+                "Espacio para charla corporativa o inspiracional el día del evento",
+                "Inclusión de 2 beneficiarias recomendadas por la empresa",
+                "Reconocimiento institucional como empresa impulsora en tecnología y sponsor principal",
+                "Entrevista o spotlight de 1 minuto para redes sociales como patrocinador principal",
+                "Informe final con métricas, alcance y testimonio",
                 "Participación en ceremonia de clausura",
               ]}
               waMsg="Hola, me interesa ser Sponsor Platinum STEAM del Reto STEAM 2026 en Cusco. ¿Me pueden dar más detalles?"
@@ -271,11 +411,11 @@ export default function RetoSteamCuscoPage() {
               price="S/ 500"
               color={STEAM_COLORS.purple}
               benefits={[
-                "Logos en web oficial del programa",
-                "1 beneficiaria recomendada",
-                "Reconocimiento institucional",
-                "Informe final",
-                "Participación en clausura",
+                "Inclusión de logos en nuestra web oficial del programa",
+                "Inclusión de 1 beneficiaria recomendada por la empresa",
+                "Reconocimiento institucional como empresa impulsora de talento tecnológico",
+                "Informe final con métricas, alcance y testimonios",
+                "Participación en ceremonia de clausura",
               ]}
               waMsg="Hola, me interesa ser Sponsor Gold STEAM del Reto STEAM 2026 en Cusco. ¿Me pueden dar más detalles?"
             />
@@ -284,10 +424,10 @@ export default function RetoSteamCuscoPage() {
               price="S/ 250"
               color={STEAM_COLORS.cyan}
               benefits={[
-                "Logo en web",
-                "Reconocimiento institucional",
-                "Informe final",
-                "Participación en clausura",
+                "Inclusión de logos en nuestra web oficial del programa",
+                "Reconocimiento institucional como empresa impulsora en tecnología y ciencias",
+                "Informe final con métricas, alcance y testimonios",
+                "Participación en ceremonia de clausura",
               ]}
               waMsg="Hola, me interesa ser Sponsor Silver STEAM del Reto STEAM 2026 en Cusco. ¿Me pueden dar más detalles?"
             />
@@ -296,10 +436,10 @@ export default function RetoSteamCuscoPage() {
               price="En especie"
               color={STEAM_COLORS.green}
               benefits={[
-                "Aporta: kits educativos, merch, snacks, bebidas, agua, local o logística",
-                "Presencia de marca en la experiencia",
-                "Logo en web",
-                "Reconocimiento en clausura",
+                "Aportes posibles: kits educativos, tote bags, libretas creativas, soportes para laptop/celular, USB personalizados, audífonos",
+                "Presencia de marca en experiencia del participante",
+                "Inclusión de logos en nuestra web oficial del programa",
+                "Participación en ceremonia de clausura",
               ]}
               waMsg="Hola, me interesa aportar en especie como Experience Sponsor del Reto STEAM 2026 en Cusco. ¿Me pueden dar más detalles?"
             />
@@ -307,74 +447,41 @@ export default function RetoSteamCuscoPage() {
         </div>
       </section>
 
-      {/* ═══════════════ 8. DONACIONES ═══════════════ */}
-      <section id="donar" className="py-20 px-5">
-        <div className="max-w-2xl mx-auto text-center">
-          <SectionTitle accent={STEAM_COLORS.pink}>Dona y apoya a una futura líder STEAM</SectionTitle>
-          <p className="text-gray-400 mb-8">
-            Tu aporte libre ayuda a becar participantes, materiales y experiencias educativas.
-          </p>
+      {/* ═══════════════ EDICIONES ANTERIORES ═══════════════ */}
+      <section className="py-20 px-5">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            <span style={{ color: STEAM_COLORS.pink }}>— </span>Edición 2025
+          </h2>
+          <p className="text-gray-400 mb-12">Nuestro impacto en la primera edición</p>
 
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {[20, 50, 100].map((amt) => (
-              <button
-                key={amt}
-                onClick={() => { setDonationAmount(amt); setCustomAmount(""); }}
-                className={`px-6 py-3 rounded-xl font-bold text-lg border transition-all ${
-                  donationAmount === amt
-                    ? "bg-[#EC4899] border-[#EC4899] text-white scale-105"
-                    : "bg-white/5 border-white/10 text-gray-300 hover:border-white/30"
-                }`}
-              >
-                S/ {amt}
-              </button>
-            ))}
-            <input
-              type="number"
-              placeholder="Otro monto"
-              value={customAmount}
-              onChange={(e) => { setCustomAmount(e.target.value); setDonationAmount(null); }}
-              className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 w-36 text-center font-bold text-lg focus:outline-none focus:border-[#EC4899]"
-            />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <AnimatedCounter target={15} prefix="+" />
+              <p className="text-gray-400 mt-2 text-sm">Adolescentes participantes</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <AnimatedCounter target={10} prefix="+" />
+              <p className="text-gray-400 mt-2 text-sm">Mentoras expertas</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <AnimatedCounter target={5} />
+              <p className="text-gray-400 mt-2 text-sm">Estaciones STEAM</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <div className="text-4xl md:text-5xl font-extrabold text-white">🏆</div>
+              <p className="text-gray-400 mt-2 text-sm">Sponsors: Caja Cusco, Mitchell y más</p>
+            </div>
           </div>
 
-          <a
-            href={waLink(`Hola, quiero donar S/ ${donationAmount || customAmount || "___"} para el Reto STEAM 2026 en Cusco. ¿Cómo puedo hacer la transferencia?`)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105 bg-[#EC4899]"
-          >
-            <Heart size={20} /> Donar ahora
-          </a>
-          <p className="text-gray-500 text-sm mt-4">Coordina tu donación por WhatsApp. Aceptamos Yape, Plin, transferencia o PayPal.</p>
-        </div>
-      </section>
-
-      {/* ═══════════════ 9. FAQ ═══════════════ */}
-      <section className="py-20 px-5 bg-white/[0.02]">
-        <div className="max-w-3xl mx-auto">
-          <SectionTitle accent={STEAM_COLORS.lavender}>Preguntas frecuentes</SectionTitle>
-          <div className="space-y-4">
-            {[
-              { q: "¿A quién está dirigido?", a: "A adolescentes y jóvenes mujeres de la región Cusco interesadas en ciencia, tecnología, innovación, creatividad y liderazgo." },
-              { q: "¿Dónde es?", a: "En el CITE Textil Camélidos Cusco, nuestro partner oficial y sede principal." },
-              { q: "¿Cómo ser sponsor?", a: "Elige tu categoría (Platinum, Gold, Silver o Experience) en la sección de sponsors y contáctanos por WhatsApp." },
-              { q: "¿Cómo donar?", a: "Puedes donar cualquier monto en la sección de donaciones. Aceptamos Yape, Plin, transferencia bancaria o PayPal." },
-            ].map((item, i) => (
-              <details key={i} className="group bg-white/5 border border-white/10 rounded-xl">
-                <summary className="flex items-center justify-between px-6 py-4 cursor-pointer text-white font-medium list-none">
-                  {item.q}
-                  <ChevronDown size={18} className="text-gray-400 transition-transform group-open:rotate-180" />
-                </summary>
-                <p className="px-6 pb-4 text-gray-400 text-sm">{item.a}</p>
-              </details>
-            ))}
+          <div className="rounded-2xl overflow-hidden border border-white/10">
+            <img src={citeLab} alt="Edición 2025" className="w-full h-64 md:h-80 object-cover" />
           </div>
         </div>
       </section>
 
-      {/* ═══════════════ 10. FOOTER ═══════════════ */}
-      <footer className="py-12 px-5 border-t border-white/10">
+      {/* ═══════════════ CONTACTO / FOOTER ═══════════════ */}
+      <footer className="py-12 px-5 border-t border-white/10 bg-white/[0.02]">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-400">
           <div className="flex items-center gap-3">
             <img src={logoMD} alt="Mujeres Digitales" className="h-10 object-contain" />
@@ -382,7 +489,10 @@ export default function RetoSteamCuscoPage() {
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             <a href={waLink("Hola, tengo una consulta sobre el Reto STEAM 2026.")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white transition-colors">
-              <MessageCircle size={14} /> WhatsApp
+              <MessageCircle size={14} /> +51 986 848 128
+            </a>
+            <a href="https://www.instagram.com/somosmujeresdigitales" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white transition-colors">
+              <Instagram size={14} /> @somosmujeresdigitales
             </a>
             <a href="mailto:contacto@somosmujeresdigitales.com" className="flex items-center gap-1 hover:text-white transition-colors">
               <Mail size={14} /> Correo
@@ -394,9 +504,6 @@ export default function RetoSteamCuscoPage() {
           <p>© 2026 Mujeres Digitales. Todos los derechos reservados.</p>
         </div>
       </footer>
-
-      {/* spacer for sticky bar on mobile */}
-      <div className="h-14 md:hidden" />
     </div>
   );
 }
