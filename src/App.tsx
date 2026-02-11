@@ -23,6 +23,7 @@ import SessionRoomPage from "./pages/mentee/SessionRoomPage";
 import MentoraDashboardPage from "./pages/mentora/MentoraDashboardPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import NotFound from "./pages/NotFound";
+import RetoSteamCuscoPage from "./pages/RetoSteamCuscoPage";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/para-mentees" element={<MenteeLandingPage />} />
             <Route path="/para-mentoras" element={<MentoraLandingPage />} />
             <Route path="/recursos" element={<ResourcesPage />} />
+            <Route path="/retosteamcusco" element={<RetoSteamCuscoPage />} />
             
             {/* Auth */}
             <Route path="/login" element={<LoginPage />} />
