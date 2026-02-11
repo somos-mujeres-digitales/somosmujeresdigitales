@@ -4,6 +4,7 @@ import heroBg from "@/assets/reto-steam-hero-bg.jpg";
 import logoMD from "@/assets/logo-mujeres-digitales-white.png";
 import logoCite from "@/assets/logo-cite-cusco-white.png";
 import citeLab from "@/assets/reto-steam-cite-lab.png";
+import collage2025 from "@/assets/reto-steam-collage-2025.jpg";
 
 const WHATSAPP = "51986848128";
 const waLink = (msg: string) =>
@@ -132,41 +133,63 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
 
 /* ───────── sponsor card ───────── */
 const SponsorCard = ({ tier, price, color, benefits, waMsg, featured }: { tier: string; price: string; color: string; benefits: string[]; waMsg: string; featured?: boolean }) => (
-  <div className={`rounded-2xl border p-6 flex flex-col gap-4 transition-all hover:scale-[1.02] ${featured ? "border-2 bg-white/10 shadow-2xl" : "border-white/10 bg-white/5"}`} style={featured ? { borderColor: color } : {}}>
-    {featured && <span className="text-xs font-bold uppercase tracking-widest" style={{ color }}>⭐ Más popular</span>}
-    <div className="flex items-center gap-2">
-      <Award size={22} style={{ color }} />
-      <h3 className="text-xl font-bold text-white">{tier}</h3>
+  <div className={`group relative rounded-2xl border p-px transition-all hover:scale-[1.02] ${featured ? "shadow-2xl" : ""}`} style={{ borderColor: featured ? color : "rgba(255,255,255,0.1)" }}>
+    {featured && <div className="absolute -inset-1 rounded-2xl opacity-20 blur-xl" style={{ background: color }} />}
+    <div className={`relative rounded-2xl p-6 md:p-8 flex flex-col gap-5 h-full ${featured ? "bg-white/10" : "bg-white/[0.04]"}`}>
+      {featured && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-white" style={{ background: color }}>
+          ⭐ Más popular
+        </div>
+      )}
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: color + "22" }}>
+          <Award size={24} style={{ color }} />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-white">{tier}</h3>
+          <p className="text-2xl font-extrabold mt-1" style={{ color }}>{price}</p>
+        </div>
+      </div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <ul className="space-y-3 text-sm text-gray-300 flex-1">
+        {benefits.map((b, i) => (
+          <li key={i} className="flex gap-3 items-start group/item">
+            <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: color + "22" }}>
+              <Star size={10} style={{ color }} />
+            </div>
+            <span className="group-hover/item:text-white transition-colors">{b}</span>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={waLink(waMsg)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-4 font-bold text-white transition-all hover:scale-105 hover:shadow-lg"
+        style={{ background: `linear-gradient(135deg, ${color}, ${color}cc)` }}
+      >
+        <MessageCircle size={18} /> Quiero ser {tier.split(" ")[0]}
+      </a>
     </div>
-    <p className="text-3xl font-extrabold" style={{ color }}>{price}</p>
-    <ul className="space-y-2 text-sm text-gray-300 flex-1">
-      {benefits.map((b, i) => (
-        <li key={i} className="flex gap-2 items-start">
-          <Star size={14} className="mt-0.5 shrink-0" style={{ color }} />
-          <span>{b}</span>
-        </li>
-      ))}
-    </ul>
-    <a
-      href={waLink(waMsg)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold text-white transition-transform hover:scale-105"
-      style={{ backgroundColor: color }}
-    >
-      <MessageCircle size={18} /> Quiero ser {tier.split(" ")[0]}
-    </a>
   </div>
 );
 
 /* ───────── station card ───────── */
-const StationCard = ({ icon: Icon, color, title, desc }: { icon: any; color: string; title: string; desc: string }) => (
-  <div className="group bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center gap-3 hover:bg-white/10 hover:border-white/20 hover:scale-[1.03] transition-all duration-300 cursor-default">
-    <div className="w-16 h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110" style={{ backgroundColor: color + "22", color }}>
-      <Icon size={32} />
+const StationCard = ({ icon: Icon, color, title, desc, number }: { icon: any; color: string; title: string; desc: string; number: number }) => (
+  <div className="group relative bg-white/[0.04] border border-white/10 rounded-3xl p-8 flex flex-col items-start gap-4 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500 cursor-default overflow-hidden">
+    <span className="absolute -right-4 -top-6 text-[8rem] font-black leading-none opacity-[0.04] text-white select-none group-hover:opacity-[0.08] transition-opacity">{number}</span>
+    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle at 30% 30%, ${color}15, transparent 70%)` }} />
+    <div className="relative">
+      <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" style={{ backgroundColor: color + "18", border: `1px solid ${color}33` }}>
+        <Icon size={30} style={{ color }} />
+      </div>
     </div>
-    <span className="text-white font-bold text-center text-lg">{title}</span>
-    <span className="text-gray-400 text-sm text-center">{desc}</span>
+    <div className="relative">
+      <span className="text-xs font-bold uppercase tracking-widest mb-1 block" style={{ color }}>Estación {number}</span>
+      <h3 className="text-white font-bold text-xl mb-2">{title}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+    </div>
+    <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(90deg, ${color}, transparent)` }} />
   </div>
 );
 
@@ -274,16 +297,17 @@ export default function RetoSteamCuscoPage() {
 
       {/* ═══════════════ ESTACIONES STEAM ═══════════════ */}
       <section className="py-20 px-5">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-white text-center">
-            <span style={{ color: STEAM_COLORS.orange }}>— </span>Estaciones STEAM
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white text-center">
+            <span style={{ color: STEAM_COLORS.orange }}>— </span>¿Qué encontrarás el 2026?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            <StationCard icon={Palette} color={STEAM_COLORS.orange} title="🎨 Diseño de Moda" desc="Creatividad aplicada al diseño textil" />
-            <StationCard icon={Droplets} color={STEAM_COLORS.purple} title="🌈 Tinturación Textil" desc="Ciencia y color en fibras naturales" />
-            <StationCard icon={Monitor} color={STEAM_COLORS.cyan} title="💻 Manufactura Digital y Software" desc="Tecnología y fabricación digital" />
-            <StationCard icon={BarChart3} color={STEAM_COLORS.green} title="📊 Modelo de Negocio" desc="Emprendimiento e innovación" />
-            <StationCard icon={Globe} color={STEAM_COLORS.pink} title="🌍 Oportunidades STEAM Internacional" desc="Becas y redes globales" />
+          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">5 estaciones STEAM donde explorarás ciencia, tecnología, arte, ingeniería y emprendimiento con mentoras expertas.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <StationCard icon={Palette} color={STEAM_COLORS.orange} title="Diseño de Moda" desc="Explora tu creatividad diseñando prendas con técnicas textiles tradicionales y modernas. Aprende sobre diseño, patronaje y tendencias de moda sostenible." number={1} />
+            <StationCard icon={Droplets} color={STEAM_COLORS.purple} title="Tinturación Textil" desc="Descubre la ciencia detrás de los colores naturales. Experimenta con tintes orgánicos sobre fibras de camélidos y aprende sobre química aplicada." number={2} />
+            <StationCard icon={Monitor} color={STEAM_COLORS.cyan} title="Manufactura Digital y Software" desc="Sumérgete en la impresión 3D, corte láser y programación básica. Crea prototipos digitales y aprende sobre realidad virtual." number={3} />
+            <StationCard icon={BarChart3} color={STEAM_COLORS.green} title="Modelo de Negocio" desc="Transforma tus ideas en proyectos viables. Aprende a crear un pitch, definir tu propuesta de valor y entender el mercado." number={4} />
+            <StationCard icon={Globe} color={STEAM_COLORS.pink} title="Oportunidades STEAM Internacional" desc="Conoce becas, programas y redes globales para jóvenes mujeres en STEAM. Descubre cómo llevar tu talento al mundo." number={5} />
           </div>
         </div>
       </section>
@@ -475,7 +499,7 @@ export default function RetoSteamCuscoPage() {
           </div>
 
           <div className="rounded-2xl overflow-hidden border border-white/10">
-            <img src={citeLab} alt="Edición 2025" className="w-full h-64 md:h-80 object-cover" />
+            <img src={collage2025} alt="Collage Reto STEAM Edición 2025" className="w-full h-auto object-cover" />
           </div>
         </div>
       </section>
