@@ -5,6 +5,7 @@ import logoMD from "@/assets/logo-mujeres-digitales-white.png";
 import logoCite from "@/assets/logo-cite-cusco-white.png";
 import citeLab from "@/assets/reto-steam-cite-lab.png";
 import collage2025 from "@/assets/reto-steam-collage-2025.jpg";
+import programaImg from "@/assets/reto-steam-programa.jpg";
 
 const WHATSAPP = "51986848128";
 const waLink = (msg: string) =>
@@ -67,37 +68,21 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "bg-[#0f0f14]/95 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent"}`}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        {/* Left */}
-        <div className="flex items-center gap-3">
-          <img src={logoMD} alt="Mujeres Digitales" className="h-8 md:h-10 object-contain" />
-          <span className="text-white font-bold text-sm md:text-base hidden sm:inline">Reto STEAM Cusco</span>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
+        {/* Left - Logo only */}
+        <div className="flex items-center">
+          <img src={logoMD} alt="Mujeres Digitales" className="h-9 md:h-12 object-contain" />
         </div>
 
         {/* Center - desktop */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           <button onClick={() => scroll("agenda")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Agenda</button>
           <button onClick={() => scroll("programa")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Reto STEAM 2026</button>
+          <button onClick={() => scroll("sponsors")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Sponsors</button>
         </div>
 
-        {/* Right - desktop */}
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco. ¿Cómo puedo inscribirme?")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2 rounded-lg font-semibold text-sm text-white transition-transform hover:scale-105"
-            style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}
-          >
-            Postular
-          </a>
-          <button
-            onClick={() => scroll("sponsors")}
-            className="px-5 py-2 rounded-lg font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-colors"
-          >
-            Quiero ser Sponsor
-          </button>
-        </div>
+        {/* Right - empty spacer for balance */}
+        <div className="hidden md:block w-12" />
 
         {/* Mobile menu toggle */}
         <button className="md:hidden text-white" onClick={() => setOpen(!open)}>
@@ -107,24 +92,10 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#0f0f14]/98 backdrop-blur-xl border-t border-white/10 px-4 pb-4 space-y-3 animate-fade-in">
-          <button onClick={() => { scroll("agenda"); setOpen(false); }} className="block w-full text-left text-gray-300 py-2 text-sm">Agenda</button>
-          <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-2 text-sm">Reto STEAM 2026</button>
-          <a
-            href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full text-center px-5 py-3 rounded-lg font-semibold text-sm text-white"
-            style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.orange}, ${STEAM_COLORS.purple})` }}
-          >
-            Postular
-          </a>
-          <button
-            onClick={() => { scroll("sponsors"); setOpen(false); }}
-            className="block w-full text-center px-5 py-3 rounded-lg font-semibold text-sm text-white border border-white/20 bg-white/5"
-          >
-            Quiero ser Sponsor
-          </button>
+        <div className="md:hidden bg-[#0f0f14]/98 backdrop-blur-xl border-t border-white/10 px-6 pb-5 space-y-3 animate-fade-in">
+          <button onClick={() => { scroll("agenda"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Agenda</button>
+          <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Reto STEAM 2026</button>
+          <button onClick={() => { scroll("sponsors"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Sponsors</button>
         </div>
       )}
     </nav>
@@ -284,14 +255,35 @@ export default function RetoSteamCuscoPage() {
       </section>
 
       {/* ═══════════════ PROGRAMA ═══════════════ */}
-      <section id="programa" className="py-20 px-5 bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            <span style={{ color: STEAM_COLORS.cyan }}>— </span>¿Qué es el Reto STEAM 2026?
-          </h2>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
-            El Reto STEAM 2026 es una experiencia inmersiva diseñada para fortalecer habilidades en ciencia, tecnología, innovación, creatividad y liderazgo en adolescentes y jóvenes mujeres mediante estaciones exploratorias y mentoría especializada.
-          </p>
+      <section id="programa" className="py-24 px-5 bg-white/[0.02] overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest mb-4 block" style={{ color: STEAM_COLORS.cyan }}>Sobre el programa</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">
+                ¿Qué es el Reto<br />
+                <span className="bg-gradient-to-r from-[#F97316] via-[#A855F7] to-[#06B6D4] bg-clip-text text-transparent">STEAM 2026</span>?
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                El Reto STEAM 2026 es una experiencia inmersiva diseñada para fortalecer habilidades en ciencia, tecnología, innovación, creatividad y liderazgo en adolescentes y jóvenes mujeres mediante estaciones exploratorias y mentoría especializada.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["Ciencia", "Tecnología", "Ingeniería", "Arte", "Matemáticas"].map((tag, i) => (
+                  <span key={i} className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-white/10 bg-white/5 text-gray-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                <img src={programaImg} alt="Reto STEAM - Laboratorio de innovación" className="w-full h-80 md:h-[400px] object-cover" />
+              </div>
+              {/* Decorative glow */}
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-3xl opacity-20" style={{ background: STEAM_COLORS.purple }} />
+              <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full blur-2xl opacity-15" style={{ background: STEAM_COLORS.cyan }} />
+            </div>
+          </div>
         </div>
       </section>
 
