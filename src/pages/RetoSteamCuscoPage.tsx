@@ -496,22 +496,50 @@ export default function RetoSteamCuscoPage() {
         </div>
       </section>
 
-      {/* ═══════════════ CONTACTO / FOOTER ═══════════════ */}
-      <footer className="py-12 px-5 border-t border-white/10 bg-white/[0.02]">
+      {/* ═══════════════ CONTACTO ═══════════════ */}
+      <section className="py-24 px-5" style={{ backgroundColor: "#321d47" }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">¿Tienes preguntas?</h2>
+          <p className="text-gray-300 mb-10 text-lg">Escríbenos y te responderemos lo antes posible.</p>
+
+          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <a
+              href={waLink("Hola, tengo una consulta sobre el Reto STEAM 2026.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 bg-white/10 border border-white/10 rounded-2xl p-8 hover:bg-white/15 transition-colors group"
+            >
+              <div className="w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <MessageCircle size={28} className="text-green-400" />
+              </div>
+              <span className="text-white font-bold text-lg">WhatsApp</span>
+              <span className="text-gray-300 text-sm">+51 986 848 128</span>
+            </a>
+
+            <a
+              href="mailto:holamujeresdigitales@gmail.com"
+              className="flex flex-col items-center gap-3 bg-white/10 border border-white/10 rounded-2xl p-8 hover:bg-white/15 transition-colors group"
+            >
+              <div className="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Mail size={28} className="text-purple-400" />
+              </div>
+              <span className="text-white font-bold text-lg">Correo</span>
+              <span className="text-gray-300 text-sm">holamujeresdigitales@gmail.com</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ FOOTER ═══════════════ */}
+      <footer className="py-10 px-5 border-t border-white/10 bg-[#0f0f14]">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-400">
           <div className="flex items-center gap-3">
             <img src={logoMD} alt="Mujeres Digitales" className="h-10 object-contain" />
             <span className="text-white font-semibold">Mujeres Digitales</span>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href={waLink("Hola, tengo una consulta sobre el Reto STEAM 2026.")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white transition-colors">
-              <MessageCircle size={14} /> +51 986 848 128
-            </a>
             <a href="https://www.instagram.com/somosmujeresdigitales" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white transition-colors">
               <Instagram size={14} /> @somosmujeresdigitales
-            </a>
-            <a href="mailto:contacto@somosmujeresdigitales.com" className="flex items-center gap-1 hover:text-white transition-colors">
-              <Mail size={14} /> Correo
             </a>
             <a href="https://www.somosmujeresdigitales.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white transition-colors">
               <ExternalLink size={14} /> Web
