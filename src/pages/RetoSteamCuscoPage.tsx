@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Calendar, ChevronDown, ExternalLink, MessageCircle, Mail, Star, Award, Menu, X, Users, BookOpen, Trophy, Building2, Instagram } from "lucide-react";
 import heroBg from "@/assets/reto-steam-hero-bg.jpg";
-import logoMD from "@/assets/reto-steam-logo-md.png";
-import logoCite from "@/assets/reto-steam-logo-cite.png";
+import logoMD from "@/assets/logo-mujeres-digitales-white.png";
+import logoCite from "@/assets/logo-cite-cusco-white.png";
 import citeLab from "@/assets/reto-steam-cite-lab.png";
 
 const WHATSAPP = "51986848128";
@@ -245,9 +245,9 @@ export default function RetoSteamCuscoPage() {
 
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Patrocinan</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {["Caja Cusco", "Mitchell", "Sponsor 3", "Tu empresa aquí"].map((name, i) => (
-              <div key={i} className={`rounded-xl border border-white/10 py-6 px-4 flex items-center justify-center text-center ${i === 3 ? "border-dashed border-white/20 bg-white/[0.02]" : "bg-white/5"}`}>
-                <span className={`font-medium text-sm ${i === 3 ? "text-gray-500 italic" : "text-gray-300"}`}>{name}</span>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-dashed border-white/20 bg-white/[0.02] py-8 px-4 flex items-center justify-center text-center hover:bg-white/5 transition-colors">
+                <span className="font-medium text-sm text-gray-500 italic">Tu empresa aquí</span>
               </div>
             ))}
           </div>
