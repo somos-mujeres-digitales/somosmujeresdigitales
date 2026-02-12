@@ -3,6 +3,7 @@ import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Calendar, 
 import heroBg from "@/assets/reto-steam-hero-bg.jpg";
 import logoMD from "@/assets/logo-mujeres-digitales-white.png";
 import logoCite from "@/assets/logo-cite-cusco-white.png";
+import citeLab from "@/assets/reto-steam-cite-lab.png";
 import collage2025 from "@/assets/reto-steam-collage-2025.jpg";
 import programaImg from "@/assets/reto-steam-programa.jpg";
 import logoMINPRO from "@/assets/logo_minpro.png";
@@ -71,7 +72,7 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "bg-[#0f0f14]/95 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
         {/* Left - Logo only */}
-        <div className="flex items-center cursor-pointer" onClick={() => scroll("programa")}>
+        <div className="flex items-center">
           <img src={logoMD} alt="Mujeres Digitales" className="h-9 md:h-12 object-contain" />
         </div>
 
@@ -297,7 +298,7 @@ export default function RetoSteamCuscoPage() {
       </section>
 
       {/* ═══════════════ ESTACIONES STEAM ═══════════════ */}
-      <section id="edicion" className="py-20 px-5">
+      <section className="py-20 px-5">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white text-center">
             <span style={{ color: STEAM_COLORS.orange }}>— </span>¿Qué encontrarás el 2026?
@@ -518,6 +519,133 @@ export default function RetoSteamCuscoPage() {
             >
               <MapPin size={18} /> Cómo llegar
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ ORGANIZADORES ═══════════════ */}
+      <section className="py-24 px-5 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest mb-4 block" style={{ color: STEAM_COLORS.purple }}>Conoce a quienes hacen esto posible</span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">
+              Nuestros <span className="bg-gradient-to-r from-[#A855F7] to-[#EC4899] bg-clip-text text-transparent">Organizadores</span>
+            </h2>
+          </div>
+
+          {/* ── Mujeres Digitales ── */}
+          <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
+                  <img src={citeLab} alt="Mujeres Digitales en acción" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+                  <img src={programaImg} alt="Tecnología e innovación" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="pt-8 space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+                  <img src={collage2025} alt="Comunidad Mujeres Digitales" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
+                  <img src={heroBg} alt="Mujeres en STEAM" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4" style={{ color: STEAM_COLORS.purple }}>
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STEAM_COLORS.purple }} />
+                Organizador principal
+              </span>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+                ¿Qué es<br />
+                <span className="bg-gradient-to-r from-[#A855F7] to-[#EC4899] bg-clip-text text-transparent">Mujeres Digitales</span>?
+              </h3>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Somos una organización acreditada por el MIMP y respaldada por SENAJU, dedicada a empoderar a mujeres y adolescentes en tecnología, ciencia y emprendimiento en Cusco y el sur del Perú.
+              </p>
+              <p className="text-gray-400 leading-relaxed mb-8">
+                A través de mentoría 1:1, talleres inmersivos y programas como el Reto STEAM, conectamos a jóvenes mujeres con mentoras expertas en áreas STEM para construir un futuro más inclusivo y digital.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-extrabold text-white">1:1</div>
+                  <p className="text-gray-400 text-xs mt-1">Mentoría personalizada</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-extrabold text-white">14-30</div>
+                  <p className="text-gray-400 text-xs mt-1">Edad de mentees</p>
+                </div>
+              </div>
+
+              <a
+                href="https://www.somosmujeresdigitales.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105 hover:shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.purple}, ${STEAM_COLORS.pink})` }}
+              >
+                Conoce más sobre nosotras <ExternalLink size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* ── CITE Textil Camélidos Cusco ── */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="order-2 md:order-1">
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4" style={{ color: STEAM_COLORS.cyan }}>
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STEAM_COLORS.cyan }} />
+                Partner oficial y sede
+              </span>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+                ¿Qué es<br />
+                <span className="bg-gradient-to-r from-[#06B6D4] to-[#22C55E] bg-clip-text text-transparent">CITE Textil Camélidos Cusco</span>?
+              </h3>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                El CITE Textil Camélidos Cusco es un centro de innovación productiva y transferencia tecnológica del Ministerio de la Producción, especializado en la cadena de valor de fibras de camélidos sudamericanos.
+              </p>
+              <p className="text-gray-400 leading-relaxed mb-8">
+                Cuenta con laboratorios de diseño, tinturación, manufactura digital e investigación textil, donde artesanas y emprendedoras acceden a tecnología de punta para innovar en sus procesos productivos y conectarse con mercados nacionales e internacionales.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-xl font-extrabold text-white">🔬</div>
+                  <p className="text-gray-400 text-xs mt-1">Laboratorios especializados</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-xl font-extrabold text-white">🧶</div>
+                  <p className="text-gray-400 text-xs mt-1">Fibras de camélidos</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-xl font-extrabold text-white">🏛️</div>
+                  <p className="text-gray-400 text-xs mt-1">Min. de Producción</p>
+                </div>
+              </div>
+
+              <a
+                href="https://www.itp.gob.pe/cite-textil-camelidos-cusco/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105 hover:shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.cyan}, ${STEAM_COLORS.green})` }}
+              >
+                Conoce el CITE Cusco <ExternalLink size={18} />
+              </a>
+            </div>
+
+            <div className="order-1 md:order-2 relative">
+              <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                <img src={citeLab} alt="CITE Textil Camélidos Cusco - Laboratorios" className="w-full h-80 md:h-[420px] object-cover" />
+              </div>
+              <div className="absolute -bottom-4 -left-4 rounded-2xl overflow-hidden border border-white/10 shadow-xl w-40 h-40 md:w-48 md:h-48">
+                <img src={logoCite} alt="Logo CITE" className="w-full h-full object-contain bg-white/10 backdrop-blur p-4" />
+              </div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full blur-3xl opacity-20" style={{ background: STEAM_COLORS.cyan }} />
+            </div>
           </div>
         </div>
       </section>
