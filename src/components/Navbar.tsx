@@ -20,6 +20,7 @@ export const Navbar: React.FC = () => {
     { href: '/para-mentees', label: 'Para Mentees' },
     { href: '/para-mentoras', label: 'Para Mentoras' },
     { href: '/recursos', label: 'Recursos' },
+    { href: '/retosteamcusco', label: 'Reto Steam Cusco' },
   ];
 
   const getDashboardLink = () => {

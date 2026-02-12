@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Calendar, ChevronDown, ExternalLink, MessageCircle, Mail, Star, Award, Menu, X, Users, BookOpen, Trophy, Building2, Instagram } from "lucide-react";
+import { Palette, Droplets, Monitor, BarChart3, Globe, Clock, MapPin, Calendar, ChevronDown, ExternalLink, MessageCircle, Mail, Star, Award, Menu, X, Users, BookOpen, Trophy, Instagram } from "lucide-react";
 import heroBg from "@/assets/reto-steam-hero-bg.jpg";
 import logoMD from "@/assets/logo-mujeres-digitales-white.png";
 import logoCite from "@/assets/logo-cite-cusco-white.png";
-import citeLab from "@/assets/reto-steam-cite-lab.png";
 import collage2025 from "@/assets/reto-steam-collage-2025.jpg";
 import programaImg from "@/assets/reto-steam-programa.jpg";
+import logoMINPRO from "@/assets/logo_minpro.png";
+import logoITP from "@/assets/logo_ITP.png";
 
 const WHATSAPP = "51986848128";
 const waLink = (msg: string) =>
@@ -70,15 +71,15 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "bg-[#0f0f14]/95 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
         {/* Left - Logo only */}
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer" onClick={() => scroll("programa")}>
           <img src={logoMD} alt="Mujeres Digitales" className="h-9 md:h-12 object-contain" />
         </div>
 
         {/* Center - desktop */}
         <div className="hidden md:flex items-center gap-8">
           <button onClick={() => scroll("agenda")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Agenda</button>
-          <button onClick={() => scroll("programa")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Reto STEAM 2026</button>
-          <button onClick={() => scroll("sponsors")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Sponsors</button>
+          <button onClick={() => scroll("edicion-2025")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Reto STEAM 2025</button>
+          <button onClick={() => scroll("sponsors")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Quiero ser Sponsor</button>
         </div>
 
         {/* Right - empty spacer for balance */}
@@ -94,8 +95,8 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
       {open && (
         <div className="md:hidden bg-[#0f0f14]/98 backdrop-blur-xl border-t border-white/10 px-6 pb-5 space-y-3 animate-fade-in">
           <button onClick={() => { scroll("agenda"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Agenda</button>
-          <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Reto STEAM 2026</button>
-          <button onClick={() => { scroll("sponsors"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Sponsors</button>
+          <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Reto STEAM 2025</button>
+          <button onClick={() => { scroll("sponsors"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Quiero ser Sponsor</button>
         </div>
       )}
     </nav>
@@ -133,7 +134,7 @@ const SponsorCard = ({ tier, price, color, benefits, waMsg, featured }: { tier: 
         ))}
       </ul>
       <a
-        href={waLink(waMsg)}
+        href="https://wa.link/ynn0p3"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-4 font-bold text-white transition-all hover:scale-105 hover:shadow-lg"
@@ -179,16 +180,25 @@ export default function RetoSteamCuscoPage() {
         <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f14]/30 via-[#0f0f14]/50 to-[#0f0f14]" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-5 text-center pt-32 pb-24">
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-            <span className="text-white">Reto </span>
-            <span className="bg-gradient-to-r from-[#F97316] via-[#A855F7] to-[#06B6D4] bg-clip-text text-transparent">STEAM</span>
-            <span className="text-white"> 2026</span>
-            <br />
-            <span className="text-white text-4xl md:text-6xl">Cusco</span>
-          </h1>
+        <div className="relative z-10 max-w-4xl mx-auto px-5 text-center pt-20 pb-16">
+          {/*<h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">*/}
+          {/*  <span className="text-white">Reto </span>*/}
+          {/*  <span className="bg-gradient-to-r from-[#F97316] via-[#A855F7] to-[#06B6D4] bg-clip-text text-transparent">STEAM</span>*/}
+          {/*  <span className="text-white"> 2026</span>*/}
+          {/*  <br />*/}
+          {/*  <span className="text-white text-4xl md:text-6xl">Cusco</span>*/}
+          {/*</h1>*/}
+          <div className="flex justify-center mb-2">
+            <div className="border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+              <img
+                src="/reto_steam.png"
+                alt="Reto STEAM - Laboratorio de innovación"
+                className="w-full max-w-2xl block"
+              />
+            </div>
+          </div>
 
-          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-2 leading-relaxed">
             Un viaje exploratorio por laboratorios tecnológicos y espacios de innovación donde las futuras líderes en tecnología y ciencia comienzan a construir su camino.
           </p>
 
@@ -205,7 +215,7 @@ export default function RetoSteamCuscoPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href={waLink("Hola, quiero postular al Reto STEAM 2026 en Cusco. ¿Cómo puedo inscribirme?")}
+              href="https://forms.gle/SWX3d9g5768A1ncj7"
               target="_blank"
               rel="noopener noreferrer"
               className="px-10 py-4 rounded-xl font-bold text-white text-lg transition-transform hover:scale-105"
@@ -228,14 +238,13 @@ export default function RetoSteamCuscoPage() {
       {/* ═══════════════ LOGOS / ORGANIZA ═══════════════ */}
       <section className="py-20 px-5">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Organiza</p>
-          <img src={logoMD} alt="Mujeres Digitales" className="h-16 md:h-20 mx-auto mb-10 object-contain" />
-
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Partner Oficial y Sede Principal</p>
-          <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-14 md:h-16 mx-auto mb-4 object-contain" />
-          <p className="text-gray-400 max-w-lg mx-auto mb-12">
-            Gracias a su liderazgo en innovación y transferencia tecnológica, este programa se desarrolla en sus espacios especializados.
-          </p>
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">Coorganizadores</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 mb-8">
+            <img src={logoMD} alt="Mujeres Digitales" className="h-16 md:h-20 object-contain" />
+            <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-16 md:h-20 object-contain" />
+            <img src={logoITP} alt="Instituto Tecnológico de la Producción" className="h-16 md:h-20 object-contain" />
+            <img src={logoMINPRO} alt="Ministerio de la Producción" className="h-16 md:h-20 object-contain" />
+          </div>
 
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Patrocinan</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -288,7 +297,7 @@ export default function RetoSteamCuscoPage() {
       </section>
 
       {/* ═══════════════ ESTACIONES STEAM ═══════════════ */}
-      <section className="py-20 px-5">
+      <section id="edicion" className="py-20 px-5">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white text-center">
             <span style={{ color: STEAM_COLORS.orange }}>— </span>¿Qué encontrarás el 2026?
@@ -338,62 +347,16 @@ export default function RetoSteamCuscoPage() {
             ))}
           </div>
 
-          <div className="text-center mt-8">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105 border border-white/20 bg-white/5"
-            >
-              👉 Ver agenda completa <ExternalLink size={16} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ SEDE ═══════════════ */}
-      <section className="py-20 px-5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">
-            <span style={{ color: STEAM_COLORS.green }}>— </span>Sede del Programa
-          </h2>
-          <p className="text-center text-gray-300 text-lg mb-4 font-medium">CITE Textil Camélidos Cusco</p>
-
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
-              <Clock size={16} style={{ color: STEAM_COLORS.cyan }} />
-              <span className="text-white font-medium">9:00 a.m. – 4:30 p.m.</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
-              <MapPin size={16} style={{ color: STEAM_COLORS.orange }} />
-              <span className="text-white font-medium">Cusco, Perú</span>
-            </div>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden border border-white/10 mb-6">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.123!2d-71.9675!3d-13.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDMxJzEyLjAiUyA3McKwNTgnMDMuMCJX!5e0!3m2!1ses!2spe!4v1700000000000"
-              width="100%"
-              height="300"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="CITE Textil Camélidos Cusco"
-            />
-          </div>
-
-          <div className="text-center">
-            <a
-              href="https://www.google.com/maps/search/CITE+Textil+Camelidos+Cusco"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105"
-              style={{ backgroundColor: STEAM_COLORS.green }}
-            >
-              <MapPin size={18} /> Cómo llegar
-            </a>
-          </div>
+          {/*<div className="text-center mt-8">*/}
+          {/*  <a*/}
+          {/*    href="#"*/}
+          {/*    target="_blank"*/}
+          {/*    rel="noopener noreferrer"*/}
+          {/*    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105 border border-white/20 bg-white/5"*/}
+          {/*  >*/}
+          {/*    👉 Ver agenda completa <ExternalLink size={16} />*/}
+          {/*  </a>*/}
+          {/*</div>*/}
         </div>
       </section>
 
@@ -464,34 +427,97 @@ export default function RetoSteamCuscoPage() {
       </section>
 
       {/* ═══════════════ EDICIONES ANTERIORES ═══════════════ */}
-      <section className="py-20 px-5">
+       <section id="edicion-2025" className="py-20 px-5">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             <span style={{ color: STEAM_COLORS.pink }}>— </span>Edición 2025
           </h2>
-          <p className="text-gray-400 mb-12">Nuestro impacto en la primera edición</p>
+          <div className="text-gray-400 mb-12 max-w-3xl mx-auto space-y-4">
+            <p className="text-base leading-relaxed">
+              Nuestro impacto en la primera edición incluyó una experiencia inmersiva desarrollada en los laboratorios del CITE Textil Camélidos Cusco, donde las participantes recorrieron estaciones STEAM vinculadas al diseño, manufactura digital, innovación productiva y desarrollo de modelos de negocio, acompañadas por mentoras expertas que fortalecieron sus habilidades y despertaron nuevas vocaciones tecnológicas.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
               <AnimatedCounter target={15} prefix="+" />
               <p className="text-gray-400 mt-2 text-sm">Adolescentes participantes</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
               <AnimatedCounter target={10} prefix="+" />
               <p className="text-gray-400 mt-2 text-sm">Mentoras expertas</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
               <AnimatedCounter target={5} />
               <p className="text-gray-400 mt-2 text-sm">Estaciones STEAM</p>
             </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <div className="text-4xl md:text-5xl font-extrabold text-white">🏆</div>
-              <p className="text-gray-400 mt-2 text-sm">Sponsors: Caja Cusco, Mitchell y más</p>
+              <div className="flex items-center gap-2 mb-3">
+                <Award size={20} style={{ color: STEAM_COLORS.orange }} />
+                <p className="text-white font-bold text-sm">Sponsors</p>
+              </div>
+              <p className="text-gray-300 text-sm leading-relaxed">Caja Cusco, Sol Alpaca y Chamba Warmi</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Star size={20} style={{ color: STEAM_COLORS.pink }} />
+                <p className="text-white font-bold text-sm">Invitada especial</p>
+              </div>
+              <p className="text-gray-300 text-sm leading-relaxed">Vice Gobernadora de la Región Cusco</p>
             </div>
           </div>
 
           <div className="rounded-2xl overflow-hidden border border-white/10">
             <img src={collage2025} alt="Collage Reto STEAM Edición 2025" className="w-full h-auto object-cover" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ SEDE ═══════════════ */}
+      <section className="py-20 px-5">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">
+            <span style={{ color: STEAM_COLORS.green }}>— </span>Sede del Programa
+          </h2>
+          <p className="text-center text-gray-300 text-lg mb-4 font-medium">CITE Textil Camélidos Cusco</p>
+
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
+              <Clock size={16} style={{ color: STEAM_COLORS.cyan }} />
+              <span className="text-white font-medium">9:00 a.m. – 4:30 p.m.</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 text-sm">
+              <MapPin size={16} style={{ color: STEAM_COLORS.orange }} />
+              <span className="text-white font-medium">Cusco, Perú</span>
+            </div>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-white/10 mb-6">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.8447!2d-71.9408201!3d-13.5318857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916e7fcf3e7f98b9%3A0x60f84b25ddfc18d4!2sCITEtextil%20cam%C3%A9lidos%20Cusco!5e0!3m2!1ses!2spe!4v1707590400000"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="CITE Textil Camélidos Cusco"
+            />
+          </div>
+
+          <div className="text-center">
+            <a
+                href="https://www.google.com/maps/search/CITE+Textil+Camelidos+Cusco"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-transform hover:scale-105"
+                style={{ backgroundColor: STEAM_COLORS.green }}
+            >
+              <MapPin size={18} /> Cómo llegar
+            </a>
           </div>
         </div>
       </section>
