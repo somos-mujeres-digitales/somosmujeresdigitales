@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 // Pages
@@ -27,6 +27,17 @@ import RetoSteamCuscoPage from "./pages/RetoSteamCuscoPage";
 
 const queryClient = new QueryClient();
 
+// Componente para redirección basada en dominio
+const RootPage = () => {
+  const isRetoSteamDomain = window.location.hostname.includes('retosteam.com');
+
+  if (isRetoSteamDomain) {
+    return <Navigate to="/retosteamcusco" replace />;
+  }
+
+  return <LandingPage />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -36,7 +47,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             {/* Public */}
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<RootPage />} />
             <Route path="/para-mentees" element={<MenteeLandingPage />} />
             <Route path="/para-mentoras" element={<MentoraLandingPage />} />
             <Route path="/recursos" element={<ResourcesPage />} />

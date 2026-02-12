@@ -1,14 +1,15 @@
 {
+  "buildCommand": "npm run build",
+  "framework": "vite",
   "rewrites": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "retosteam.com"
-        }
-      ],
-      "destination": "/retosteamcusco/$1"
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }
+
+
+
+
+
