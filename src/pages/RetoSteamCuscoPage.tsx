@@ -8,6 +8,11 @@ import collage2025 from "@/assets/reto-steam-collage-2025.jpg";
 import programaImg from "@/assets/reto-steam-programa.jpg";
 import logoMINPRO from "@/assets/logo_minpro.png";
 import logoITP from "@/assets/logo_ITP.png";
+import Mujeres1 from "@/assets/mujeres-1.png";
+import Mujeres2 from "@/assets/mujeres-2.png";
+import Mujeres3 from "@/assets/mujeres-3.png";
+import CITE1 from "@/assets/cite-1.png";
+
 
 const WHATSAPP = "51986848128";
 const waLink = (msg: string) =>
@@ -538,10 +543,10 @@ export default function RetoSteamCuscoPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
-                  <img src={citeLab} alt="Mujeres Digitales en acción" className="w-full h-full object-cover" />
+                  <img src={Mujeres1} alt="Mujeres Digitales en acción" className="w-full h-full object-cover" />
                 </div>
                 <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
-                  <img src={programaImg} alt="Tecnología e innovación" className="w-full h-full object-cover" />
+                  <img src={Mujeres2} alt="Tecnología e innovación" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="pt-8 space-y-4">
@@ -549,7 +554,7 @@ export default function RetoSteamCuscoPage() {
                   <img src={collage2025} alt="Comunidad Mujeres Digitales" className="w-full h-full object-cover" />
                 </div>
                 <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
-                  <img src={heroBg} alt="Mujeres en STEAM" className="w-full h-full object-cover" />
+                  <img src={Mujeres3} alt="Mujeres en STEAM" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -582,7 +587,7 @@ export default function RetoSteamCuscoPage() {
               </div>
 
               <a
-                href="https://www.somosmujeresdigitales.com"
+                href="https://www.instagram.com/somosmujeresdigitales/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105 hover:shadow-lg"
@@ -627,7 +632,7 @@ export default function RetoSteamCuscoPage() {
               </div>
 
               <a
-                href="https://www.itp.gob.pe/cite-textil-camelidos-cusco/"
+                href="https://www.instagram.com/citecusco/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105 hover:shadow-lg"
@@ -639,7 +644,7 @@ export default function RetoSteamCuscoPage() {
 
             <div className="order-1 md:order-2 relative">
               <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <img src={citeLab} alt="CITE Textil Camélidos Cusco - Laboratorios" className="w-full h-80 md:h-[420px] object-cover" />
+                <img src={CITE1} alt="CITE Textil Camélidos Cusco - Laboratorios" className="w-full h-80 md:h-[420px] object-cover" />
               </div>
               <div className="absolute -bottom-4 -left-4 rounded-2xl overflow-hidden border border-white/10 shadow-xl w-40 h-40 md:w-48 md:h-48">
                 <img src={logoCite} alt="Logo CITE" className="w-full h-full object-contain bg-white/10 backdrop-blur p-4" />
