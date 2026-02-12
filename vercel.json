@@ -1,18 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        { "type": "host", "value": "retosteam.com" },
-        { "type": "host", "value": "www.retosteam.com" }
-      ],
-      "destination": "/retosteamcusco"
-    },
-    {
       "source": "/(.*)",
       "has": [
-        { "type": "host", "value": "retosteam.com" },
-        { "type": "host", "value": "www.retosteam.com" }
+        {
+          "type": "host",
+          "value": "retosteam.com"
+        }
       ],
       "destination": "/retosteamcusco/$1"
     }
