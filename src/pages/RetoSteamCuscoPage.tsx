@@ -78,7 +78,7 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
         <div className="hidden md:flex items-center gap-8">
           <button onClick={() => scroll("agenda")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Agenda</button>
           <button onClick={() => scroll("programa")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Reto STEAM 2026</button>
-          <button onClick={() => scroll("sponsors")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Sponsors</button>
+          <button onClick={() => scroll("sponsors")} className="text-gray-300 hover:text-white text-sm font-medium transition-colors">Quiero ser sponsor</button>
         </div>
 
         {/* Right - empty spacer for balance */}
@@ -95,7 +95,7 @@ function SteamNavbar({ scroll }: { scroll: (id: string) => void }) {
         <div className="md:hidden bg-[#0f0f14]/98 backdrop-blur-xl border-t border-white/10 px-6 pb-5 space-y-3 animate-fade-in">
           <button onClick={() => { scroll("agenda"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Agenda</button>
           <button onClick={() => { scroll("programa"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Reto STEAM 2026</button>
-          <button onClick={() => { scroll("sponsors"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Sponsors</button>
+          <button onClick={() => { scroll("sponsors"); setOpen(false); }} className="block w-full text-left text-gray-300 py-3 text-sm font-medium">Quiero ser sponsor</button>
         </div>
       )}
     </nav>
@@ -492,6 +492,72 @@ export default function RetoSteamCuscoPage() {
 
           <div className="rounded-2xl overflow-hidden border border-white/10">
             <img src={collage2025} alt="Collage Reto STEAM Edición 2025" className="w-full h-auto object-cover" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ SOBRE MUJERES DIGITALES ═══════════════ */}
+      <section className="py-24 px-5 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Left - Images grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
+                  <img src={citeLab} alt="Mujeres Digitales en acción" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+                  <img src={programaImg} alt="Tecnología e innovación" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="pt-8 space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+                  <img src={collage2025} alt="Comunidad Mujeres Digitales" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/4]">
+                  <img src={heroBg} alt="Mujeres en STEAM" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+
+            {/* Right - Text */}
+            <div>
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4" style={{ color: STEAM_COLORS.purple }}>
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STEAM_COLORS.purple }} />
+                Sobre nosotras
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                ¿Qué es<br />
+                <span className="bg-gradient-to-r from-[#A855F7] to-[#EC4899] bg-clip-text text-transparent">Mujeres Digitales</span>?
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Somos una organización acreditada por el MIMP y respaldada por SENAJU, dedicada a empoderar a mujeres y adolescentes en tecnología, ciencia y emprendimiento en Cusco y el sur del Perú.
+              </p>
+              <p className="text-gray-400 leading-relaxed mb-8">
+                A través de mentoría 1:1, talleres inmersivos y programas como el Reto STEAM, conectamos a jóvenes mujeres con mentoras expertas en áreas STEM para construir un futuro más inclusivo y digital.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-extrabold text-white">1:1</div>
+                  <p className="text-gray-400 text-xs mt-1">Mentoría personalizada</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-extrabold text-white">14-30</div>
+                  <p className="text-gray-400 text-xs mt-1">Edad de mentees</p>
+                </div>
+              </div>
+
+              <a
+                href="https://www.somosmujeresdigitales.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105 hover:shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${STEAM_COLORS.purple}, ${STEAM_COLORS.pink})` }}
+              >
+                Conoce más sobre nosotras <ExternalLink size={18} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
