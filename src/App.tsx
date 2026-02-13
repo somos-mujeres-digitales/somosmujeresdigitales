@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 // Pages
@@ -32,7 +32,8 @@ const RootPage = () => {
   const isRetoSteamDomain = window.location.hostname.includes('retosteam.com');
 
   if (isRetoSteamDomain) {
-    return <Navigate to="/retosteamcusco" replace />;
+    // Renderizar directamente RetoSteamCuscoPage sin redirigir
+    return <RetoSteamCuscoPage />;
   }
 
   return <LandingPage />;
