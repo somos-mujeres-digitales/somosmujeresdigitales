@@ -246,10 +246,10 @@ export default function RetoSteamCuscoPage() {
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">Coorganizadores</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 mb-8">
-            <img src={logoMD} alt="Mujeres Digitales" className="h-16 md:h-20 object-contain" />
-            <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-16 md:h-20 object-contain" />
-            <img src={logoITP} alt="Instituto Tecnológico de la Producción" className="h-16 md:h-20 object-contain" />
-            <img src={logoMINPRO} alt="Ministerio de la Producción" className="h-16 md:h-20 object-contain" />
+            <img src={logoMD} alt="Mujeres Digitales" className="h-24 md:h-32 object-contain" />
+            <img src={logoCite} alt="CITE Textil Camélidos Cusco" className="h-24 md:h-32 object-contain" />
+            <img src={logoITP} alt="Instituto Tecnológico de la Producción" className="h-36 md:h-48 object-contain" />
+            <img src={logoMINPRO} alt="Ministerio de la Producción" className="h-40 md:h-52 object-contain" />
           </div>
 
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Patrocinan</p>
@@ -292,7 +292,7 @@ export default function RetoSteamCuscoPage() {
             </div>
             <div className="relative">
               <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <img src={programaImg} alt="Reto STEAM - Laboratorio de innovación" className="w-full h-80 md:h-[400px] object-cover" />
+                <img src={programaImg} alt="Reto STEAM - Laboratorio de innovación" className="w-full h-[600px] md:h-[700px] object-cover" />
               </div>
               {/* Decorative glow */}
               <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-3xl opacity-20" style={{ background: STEAM_COLORS.purple }} />
@@ -477,7 +477,7 @@ export default function RetoSteamCuscoPage() {
           </div>
 
           <div className="rounded-2xl overflow-hidden border border-white/10">
-            <img src={collage2025} alt="Collage Reto STEAM Edición 2025" className="w-full h-auto object-cover" />
+            <img src={collage2025} alt="Collage Reto STEAM Edición 2025" className="w-full h-[500px] md:h-[600px] object-cover" />
           </div>
         </div>
       </section>
@@ -505,7 +505,7 @@ export default function RetoSteamCuscoPage() {
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.8447!2d-71.9408201!3d-13.5318857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916e7fcf3e7f98b9%3A0x60f84b25ddfc18d4!2sCITEtextil%20cam%C3%A9lidos%20Cusco!5e0!3m2!1ses!2spe!4v1707590400000"
                 width="100%"
-                height="300"
+                height="550"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
@@ -644,7 +644,7 @@ export default function RetoSteamCuscoPage() {
 
             <div className="order-1 md:order-2 relative">
               <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <img src={CITE1} alt="CITE Textil Camélidos Cusco - Laboratorios" className="w-full h-80 md:h-[420px] object-cover" />
+                <img src={CITE1} alt="CITE Textil Camélidos Cusco - Laboratorios" className="w-full h-[600px] md:h-[700px] object-cover" />
               </div>
               <div className="absolute -bottom-4 -left-4 rounded-2xl overflow-hidden border border-white/10 shadow-xl w-40 h-40 md:w-48 md:h-48">
                 <img src={logoCite} alt="Logo CITE" className="w-full h-full object-contain bg-white/10 backdrop-blur p-4" />
