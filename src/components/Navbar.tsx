@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { isAuthenticated, user, logout } = useAuth();
 
   const navLinks = [
     { href: '/para-mentees', label: 'Para Mentees' },
@@ -22,20 +13,6 @@ export const Navbar: React.FC = () => {
     { href: '/recursos', label: 'Recursos' },
     { href: '/retosteamcusco', label: 'Reto Steam Cusco' },
   ];
-
-  const getDashboardLink = () => {
-    if (!user) return '/login';
-    switch (user.role) {
-      case 'mentee':
-        return user.isOnboarded ? '/mentee/dashboard' : '/mentee/onboarding';
-      case 'mentora':
-        return user.isOnboarded ? '/mentora/dashboard' : '/mentora/onboarding';
-      case 'admin':
-        return '/admin/dashboard';
-      default:
-        return '/login';
-    }
-  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
@@ -71,35 +48,16 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            {isAuthenticated ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="gap-2">
-                    {user?.name}
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link to={getDashboardLink()}>Mi Dashboard</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={logout}>
-                    Cerrar sesión
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <>
-                <Button variant="ghost" asChild>
-                  <Link to="/login">Iniciar sesión</Link>
-                </Button>
-                <Button asChild>
-                  <Link to="/register">Registrarse</Link>
-                </Button>
-              </>
-            )}
+          {/* The app is presented as a public mockup until the real app launches. */}
+          <div className="hidden md:block">
+            <a
+              href="https://www.somosmujeresdigitales.org"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground"
+            >
+              Sitio oficial
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -135,32 +93,16 @@ export const Navbar: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                {isAuthenticated ? (
-                  <>
-                    <Button variant="outline" asChild>
-                      <Link to={getDashboardLink()} onClick={() => setIsOpen(false)}>
-                        Mi Dashboard
-                      </Link>
-                    </Button>
-                    <Button variant="ghost" onClick={() => { logout(); setIsOpen(false); }}>
-                      Cerrar sesión
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button variant="outline" asChild>
-                      <Link to="/login" onClick={() => setIsOpen(false)}>
-                        Iniciar sesión
-                      </Link>
-                    </Button>
-                    <Button asChild>
-                      <Link to="/register" onClick={() => setIsOpen(false)}>
-                        Registrarse
-                      </Link>
-                    </Button>
-                  </>
-                )}
+              <div className="pt-4 border-t border-border">
+                <a
+                  href="https://www.somosmujeresdigitales.org"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sitio oficial
+                </a>
               </div>
             </div>
           </div>

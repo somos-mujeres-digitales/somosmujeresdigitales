@@ -1,12 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { MentorCard } from '@/components/MentorCard';
 import { mentoras, testimonials } from '@/data/mockData';
 import {
-  ArrowRight,
   CheckCircle,
   Target,
   Lightbulb,
@@ -33,17 +32,17 @@ const ParaMenteesPage: React.FC = () => {
     {
       icon: Brain,
       title: 'Matching inteligente',
-      description: 'Nuestro algoritmo te conecta con mentoras que entienden tu situación específica y objetivos.',
+      description: 'Estamos preparando una experiencia que tendrá en cuenta tu situación y tus objetivos.',
     },
     {
       icon: Users,
       title: 'Red de apoyo',
-      description: 'Únete a una comunidad de mujeres que, como tú, están construyendo su camino en tecnología y ciencia.',
+      description: 'Próximamente podrás conocer una comunidad de mujeres que construyen su camino en tecnología y ciencia.',
     },
     {
       icon: Lightbulb,
       title: 'Consejos prácticos',
-      description: 'Recibe orientación real de profesionales que ya pasaron por donde estás ahora.',
+      description: 'Estamos preparando contenidos y orientación de profesionales con experiencia en STEM.',
     },
   ];
 
@@ -107,18 +106,13 @@ const ParaMenteesPage: React.FC = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up animation-delay-100">
-              Conecta con mentoras profesionales que ya recorrieron el camino que tú quieres seguir. 
-              Decisiones informadas, no más incertidumbre.
+              Estamos preparando una experiencia para acercarte a mentoras profesionales y ayudarte
+              a tomar decisiones informadas sobre tu futuro.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-200">
-              <Button size="lg" className="gap-2" onClick={() => navigate('/register')}>
-                Encuentra tu mentora
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate('/matching')}>
-                Ver mentoras disponibles
-              </Button>
+              <Button size="lg" asChild><Link to="/recursos">Conoce nuestros recursos</Link></Button>
+              <Button size="lg" variant="outline" asChild><Link to="/">Volver al inicio</Link></Button>
             </div>
           </div>
         </div>
@@ -174,10 +168,7 @@ const ParaMenteesPage: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <Button className="mt-8" onClick={() => navigate('/register')}>
-                Comenzar ahora
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
+              <Button className="mt-8" asChild><Link to="/recursos">Explora nuestros recursos</Link></Button>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {mentoras.slice(0, 4).map((mentor, index) => (
@@ -232,20 +223,18 @@ const ParaMenteesPage: React.FC = () => {
               Precio simple y transparente
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Sin suscripciones. Paga solo por las sesiones que necesitas.
+              Próximamente compartiremos cómo funcionará esta experiencia.
             </p>
 
             <div className="dashboard-card inline-block">
               <div className="text-center">
-                <p className="text-5xl font-bold text-foreground">USD $29</p>
-                <p className="text-muted-foreground mt-2">por sesión de 60 minutos</p>
+                <p className="text-5xl font-bold text-foreground">Próximamente</p>
+                <p className="text-muted-foreground mt-2">Conoce pronto todos los detalles</p>
                 <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
                   <Calendar className="h-4 w-4" />
-                  <span>Agenda cuando quieras</span>
+                  <span>Estamos preparando la experiencia</span>
                 </div>
-                <Button className="mt-6 w-full" size="lg" onClick={() => navigate('/register')}>
-                  Registrarme gratis
-                </Button>
+                <Button className="mt-6 w-full" size="lg" asChild><Link to="/recursos">Conoce más</Link></Button>
               </div>
             </div>
           </div>
@@ -287,12 +276,9 @@ const ParaMenteesPage: React.FC = () => {
             ¿Lista para dar el primer paso?
           </h2>
           <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Registrarte es gratis. Explora mentoras y reserva cuando estés lista.
+            La plataforma estará disponible próximamente.
           </p>
-          <Button size="lg" variant="secondary" onClick={() => navigate('/register')}>
-            Crear mi cuenta gratis
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
+          <Button size="lg" variant="secondary" asChild><Link to="/">Volver al inicio</Link></Button>
         </div>
       </section>
 

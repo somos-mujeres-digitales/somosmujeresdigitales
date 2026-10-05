@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import {
-  ArrowRight,
   Award,
   CheckCircle,
   Globe,
@@ -16,8 +14,6 @@ import {
 } from 'lucide-react';
 
 const MentoraLandingPage: React.FC = () => {
-  const navigate = useNavigate();
-
   const reasons = [
     {
       icon: Heart,
@@ -61,13 +57,14 @@ const MentoraLandingPage: React.FC = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Únete a nuestra red de mujeres líderes y ayuda a cerrar la brecha de género en STEM compartiendo tu camino y conocimientos.
+              Estamos preparando una nueva experiencia para que mujeres líderes puedan compartir su camino y conocimientos.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gap-2" onClick={() => navigate('/register')}>
-                Aplicar como mentora
-                <ArrowRight className="h-4 w-4" />
+              <Button size="lg" asChild>
+                <a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer">
+                  Visita nuestro sitio oficial
+                </a>
               </Button>
             </div>
           </div>
@@ -116,23 +113,23 @@ const MentoraLandingPage: React.FC = () => {
               <div className="grid sm:grid-cols-2 gap-8 relative z-10">
                 {[
                   {
-                    title: 'Matching Inteligente',
-                    text: 'Mentorías 1:1 con mujeres alineadas exactamente a tu experiencia profesional.',
+                    title: 'Conexiones con propósito',
+                    text: 'Una experiencia pensada para acercar perfiles y experiencias.',
                     icon: Sparkles
                   },
                   {
-                    title: 'Monetiza tu Experiencia',
-                    text: 'Recibe USD $29 por cada sesión (retienes el 60% neto sin comisiones ocultas).',
+                    title: 'Información transparente',
+                    text: 'Próximamente compartiremos todos los detalles de participación.',
                     icon: TrendingUp
                   },
                   {
                     title: 'Impacto Tangible',
-                    text: 'Guía decisiones cruciales de mujeres que están definiendo su futuro en STEM.',
+                    text: 'Acompaña a mujeres que están definiendo su futuro en STEM.',
                     icon: Target
                   },
                   {
                     title: 'Posicionamiento Senior',
-                    text: 'Perfil validado y reconocimiento como referente de alto nivel en nuestra red.',
+                    text: 'Forma parte de una red de referentes cuando la experiencia esté disponible.',
                     icon: Award
                   }
                 ].map((benefit, index) => (
@@ -181,7 +178,7 @@ const MentoraLandingPage: React.FC = () => {
                   <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                     <span className="text-primary font-bold text-xs">1</span>
                   </div>
-                  <p className="text-muted-foreground">Remuneración justa por tu tiempo (USD $29 por sesión).</p>
+                  <p className="text-muted-foreground">Próximamente compartiremos más información sobre la iniciativa.</p>
                 </li>
                 <li className="flex gap-3">
                   <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -193,10 +190,10 @@ const MentoraLandingPage: React.FC = () => {
                   <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                     <span className="text-primary font-bold text-xs">3</span>
                   </div>
-                  <p className="text-muted-foreground">Plataforma automatizada para gestionar tus sesiones y pagos.</p>
+                  <p className="text-muted-foreground">Estamos preparando una experiencia sencilla para futuras mentorías.</p>
                 </li>
               </ul>
-              <Button className="w-full mt-8" onClick={() => navigate('/register')}>Aplicar ahora</Button>
+              <Button className="w-full mt-8" asChild><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer">Conoce más</a></Button>
             </div>
           </div>
         </div>

@@ -67,10 +67,10 @@ const MatchingPage: React.FC = () => {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Encuentra tu mentora ideal
+              Conoce la experiencia que estamos preparando
             </h1>
             <p className="text-muted-foreground">
-              Nuestro algoritmo de matching conecta tu perfil con mentoras expertas en STEM.
+              Estamos diseñando una experiencia para acercarte a mentoras expertas en STEM. Muy pronto compartiremos más detalles.
             </p>
           </div>
 

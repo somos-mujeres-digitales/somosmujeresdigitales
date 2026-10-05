@@ -6,7 +6,6 @@ import { Footer } from '@/components/Footer';
 import { MentorCard } from '@/components/MentorCard';
 import { mentoras } from '@/data/mockData';
 import {
-  ArrowRight,
   Brain,
   Calendar,
   CheckCircle,
@@ -46,13 +45,13 @@ const MenteeLandingPage: React.FC = () => {
     },
     {
       icon: Brain,
-      title: 'Matching inteligente',
-      description: 'Nuestro algoritmo encuentra mentoras que se alinean con tu camino.',
+      title: 'Orientación personalizada',
+      description: 'Estamos preparando una experiencia para acercarte a mentoras alineadas con tu camino.',
     },
     {
       icon: Calendar,
-      title: 'Reserva tu sesión',
-      description: 'Elige horario, paga USD $29, y recibe orientación personalizada.',
+      title: 'Próximamente',
+      description: 'Muy pronto podrás conocer cómo funcionará nuestra experiencia de mentoría.',
     },
   ];
 
@@ -75,13 +74,14 @@ const MenteeLandingPage: React.FC = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              No camines sola. Encuentra a la mentora ideal que te ayudará a tomar las mejores decisiones para tu futuro profesional.
+              Estamos preparando un espacio para que conozcas a mentoras y encuentres orientación para tus decisiones profesionales.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gap-2" onClick={() => navigate('/register')}>
-                Encuentra tu mentora hoy
-                <ArrowRight className="h-4 w-4" />
+              <Button size="lg" asChild>
+                <a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer">
+                  Conoce más sobre nosotras
+                </a>
               </Button>
             </div>
           </div>

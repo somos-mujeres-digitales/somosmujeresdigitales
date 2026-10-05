@@ -6,7 +6,6 @@ import { Footer } from '@/components/Footer';
 import { MentorCard } from '@/components/MentorCard';
 import { mentoras, testimonials, platformStats } from '@/data/mockData';
 import {
-  ArrowRight,
   Sparkles,
   Users,
   Calendar,
@@ -44,11 +43,11 @@ const LandingPage: React.FC = () => {
   }, {
     icon: Brain,
     title: 'Matching inteligente',
-    description: 'Nuestro algoritmo encuentra mentoras que se alinean con tu camino.'
+    description: 'Estamos diseñando una experiencia para acercarte a mentoras alineadas con tu camino.'
   }, {
     icon: Calendar,
-    title: 'Reserva tu sesión',
-    description: 'Elige horario, paga USD $29, y recibe orientación personalizada.'
+    title: 'Próximamente',
+    description: 'Muy pronto compartiremos cómo podrás acceder a orientación personalizada.'
   }];
   const problems = [{
     icon: Target,
@@ -65,19 +64,19 @@ const LandingPage: React.FC = () => {
   }];
   const faqs = [{
     question: '¿Qué es Mujeres Digitales?',
-    answer: 'Somos un marketplace de mentoría 1:1 que conecta mujeres de 14-30 años con mentoras profesionales en STEM. No vendemos cursos ni contenido: facilitamos decisiones informadas a través de mentoría personalizada.'
+    answer: 'Estamos preparando una experiencia de mentoría 1:1 para mujeres de 14-30 años y mentoras profesionales en STEM. No será un sitio de cursos: queremos facilitar decisiones informadas a través de conexiones humanas.'
   }, {
     question: '¿Cómo funciona el matching inteligente?',
-    answer: 'Nuestro algoritmo analiza tu etapa de vida, objetivos, área de interés STEM, disponibilidad y preferencias para recomendarte mentoras con experiencia relevante. Cada match incluye un porcentaje de compatibilidad explicable.'
+    answer: 'Estamos diseñando una experiencia que tendrá en cuenta tu etapa de vida, objetivos, área de interés STEM y preferencias para acercarte a referentes relevantes.'
   }, {
     question: '¿Cuánto cuesta una sesión?',
-    answer: 'Cada sesión de mentoría tiene un precio fijo de USD $29. De este monto, el 60% va directo a la mentora y el 40% a la plataforma para cubrir matching, gestión y aseguramiento de calidad.'
+    answer: 'Los detalles de precios y funcionamiento se anunciarán cuando la experiencia esté lista. Por ahora, estamos trabajando para que sea clara, accesible y valiosa.'
   }, {
     question: '¿Cómo puedo ser mentora?',
-    answer: 'Si eres profesional en STEM con al menos 3 años de experiencia, puedes aplicar. Validamos tu perfil, verificamos tu experiencia, y te integramos al marketplace. Tú defines tu disponibilidad y áreas de mentoría.'
+    answer: 'Si eres profesional en STEM y te interesa compartir tu experiencia, próximamente anunciaremos cómo participar. Estamos definiendo un proceso claro y cuidadoso para futuras mentoras.'
   }, {
     question: '¿Qué pasa después de la sesión?',
-    answer: 'Después de cada sesión recibes un plan de acción personalizado. Puedes continuar con la misma mentora o explorar nuevas recomendaciones. Hacemos seguimiento de tu progreso y claridad.'
+    answer: 'Estamos diseñando una experiencia que pueda acompañarte con orientación práctica y próximos pasos personalizados cuando esté disponible.'
   }];
   return <div className="min-h-screen bg-background">
       <Navbar />
@@ -93,45 +92,44 @@ const LandingPage: React.FC = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full text-secondary-foreground text-sm font-medium mb-6 animate-fade-in">
               <Sparkles className="h-4 w-4" />
-              Matching inteligente + Mentoría 1:1
+              Una nueva experiencia para mujeres en STEM
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-slide-up">
-              Encuentra a la mentora STEM correcta para{' '}
-              <span className="text-gradient">tomar tu mejor decisión</span>
+              Estamos preparando una experiencia para{' '}
+              <span className="text-gradient">impulsar tu camino en STEM</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up animation-delay-100">
-              Conectamos mujeres de 14-30 años con profesionales STEM verificadas. 
-              Decisiones de carrera informadas, no más incertidumbre.
+              Muy pronto presentaremos una nueva forma de acercarte a profesionales STEM y
+              encontrar orientación para tus decisiones de carrera.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-200">
-              <Button size="lg" className="gap-2" onClick={() => navigate('/register')}>
-                Encuentra tu mentora
-                <ArrowRight className="h-4 w-4" />
+              <Button size="lg" asChild>
+                <a href="#como-funciona">Conoce cómo funciona</a>
               </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate('/para-mentoras')}>
-                Quiero ser mentora
+              <Button size="lg" variant="outline" asChild>
+                <Link to="/para-mentoras">Quiero ser mentora</Link>
               </Button>
             </div>
 
             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 animate-slide-up animation-delay-300">
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.mentorsActive}+</p>
-                <p className="text-sm text-muted-foreground">Mentoras activas</p>
+                <p className="text-sm text-muted-foreground">Mentoras que queremos impulsar</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{(platformStats.sessionsCompleted)}+</p>
-                <p className="text-sm text-muted-foreground">Sesiones completadas</p>
+                <p className="text-sm text-muted-foreground">Sesiones que imaginamos</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.countriesReached}</p>
-                <p className="text-sm text-muted-foreground">Países</p>
+                <p className="text-sm text-muted-foreground">Países a alcanzar</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.satisfactionRate}%</p>
-                <p className="text-sm text-muted-foreground">Satisfacción</p>
+                <p className="text-sm text-muted-foreground">Experiencias que queremos crear</p>
               </div>
             </div>
           </div>
@@ -169,7 +167,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Solution Section */}
-      <section className="py-16 md:py-24 bg-secondary/30">
+      <section id="como-funciona" className="py-16 md:py-24 bg-secondary/30">
         <div className="section-container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -179,7 +177,7 @@ const LandingPage: React.FC = () => {
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Combinamos tecnología de matching con mentoría humana experta. 
-                No más búsquedas al azar: conectamos perfiles con precisión.
+                Queremos que encontrar orientación sea más claro y cercano.
               </p>
 
               <div className="space-y-4">
@@ -192,7 +190,7 @@ const LandingPage: React.FC = () => {
               <div className="mt-8 p-4 bg-card rounded-xl border border-border">
                 <p className="text-sm text-muted-foreground mb-1">Modelo de precios transparente</p>
                 <p className="text-lg font-semibold text-foreground">
-                  USD $29 por sesión → 60% mentora / 40% plataforma
+                  Detalles y modelo de participación: próximamente
                 </p>
               </div>
             </div>
@@ -224,7 +222,7 @@ const LandingPage: React.FC = () => {
               Cómo funciona
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              En 3 simples pasos, conecta con tu mentora ideal.
+              Así estamos imaginando la experiencia que viene.
             </p>
           </div>
 
@@ -247,9 +245,10 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" onClick={() => navigate('/register')}>
-              Comenzar ahora
-              <ArrowRight className="h-4 w-4 ml-2" />
+            <Button size="lg" asChild>
+              <a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer">
+                Conoce más sobre nosotras
+              </a>
             </Button>
           </div>
         </div>
@@ -294,9 +293,8 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="text-center mt-10">
-            <Button variant="outline" size="lg" onClick={() => navigate('/matching')}>
-              Ver todas las mentoras
-              <ArrowRight className="h-4 w-4 ml-2" />
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/para-mentoras">Ver mentoras</Link>
             </Button>
           </div>
         </div>
@@ -401,21 +399,36 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
+      <section className="py-16 md:py-20 bg-secondary/30">
+        <div className="section-container text-center">
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">Próximamente</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Nuestra plataforma de mentoría está en camino
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Estamos preparando una nueva experiencia para conectar mujeres con mentoras STEM.
+            Mientras tanto, conoce más sobre nuestro trabajo en nuestro sitio oficial.
+          </p>
+        </div>
+      </section>
+
+      {/* CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-primary">
         <div className="section-container text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
             ¿Lista para tomar tu mejor decisión?
           </h2>
           <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Únete a miles de mujeres que ya encontraron su camino en STEM con ayuda de mentoras expertas.
+            Estamos preparando una nueva experiencia para acompañar a más mujeres en su camino STEM.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" onClick={() => navigate('/register')}>
-              Comenzar gratis
-              <ArrowRight className="h-4 w-4 ml-2" />
+            <Button size="lg" variant="secondary" asChild>
+              <a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer">
+                Visita nuestro sitio oficial
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10" onClick={() => navigate('/para-mentoras')}>
-              Aplicar como mentora
+            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <Link to="/para-mentoras">Conoce a las mentoras</Link>
             </Button>
           </div>
         </div>

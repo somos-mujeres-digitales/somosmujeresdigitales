@@ -10,9 +10,6 @@ import LandingPage from "./pages/LandingPage";
 import MenteeLandingPage from "./pages/MenteeLandingPage";
 import MentoraLandingPage from "./pages/MentoraLandingPage";
 import ResourcesPage from "./pages/ResourcesPage";
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import MenteeOnboardingPage from "./pages/mentee/MenteeOnboardingPage";
 import MentoraOnboardingPage from "./pages/mentora/MentoraOnboardingPage";
 import MenteeDashboardPage from "./pages/mentee/MenteeDashboardPage";
@@ -53,11 +50,6 @@ const App = () => (
             <Route path="/para-mentoras" element={<MentoraLandingPage />} />
             <Route path="/recursos" element={<ResourcesPage />} />
             <Route path="/retosteamcusco" element={<RetoSteamCuscoPage />} />
-            
-            {/* Auth */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             
             {/* Mentee */}
             <Route path="/mentee/onboarding" element={<MenteeOnboardingPage />} />

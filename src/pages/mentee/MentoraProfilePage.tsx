@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { MatchScoreBadge } from '@/components/MatchScoreBadge';
 import { mentoras } from '@/data/mockData';
-import { MapPin, Star, Clock, Globe, Award, Calendar, ArrowLeft, CheckCircle } from 'lucide-react';
+import { MapPin, Star, Clock, Globe, Award, ArrowLeft, CheckCircle } from 'lucide-react';
 
 const MentoraProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -65,9 +65,6 @@ const MentoraProfilePage: React.FC = () => {
                   <p className="text-3xl font-bold text-foreground">USD ${mentor.pricePerSession}</p>
                   <p className="text-muted-foreground">por sesión</p>
                 </div>
-                <Button className="w-full" size="lg" onClick={() => navigate(`/booking/${mentor.id}`)}>
-                  <Calendar className="h-4 w-4 mr-2" /> Reservar sesión
-                </Button>
                 <p className="text-xs text-center text-muted-foreground mt-3">60% mentora / 40% plataforma</p>
               </div>
               

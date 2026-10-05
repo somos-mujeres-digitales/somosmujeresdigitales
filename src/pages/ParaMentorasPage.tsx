@@ -1,11 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { mentoras, platformStats } from '@/data/mockData';
 import {
-  ArrowRight,
   CheckCircle,
   DollarSign,
   Clock,
@@ -21,13 +20,11 @@ import {
 } from 'lucide-react';
 
 const ParaMentorasPage: React.FC = () => {
-  const navigate = useNavigate();
-
   const benefits = [
     {
       icon: DollarSign,
       title: 'Ingresos flexibles',
-      description: 'Gana USD $17.40 por sesión (60% del precio). Tú defines tu disponibilidad.',
+      description: 'Próximamente podrás conocer cómo participar y compartir tu experiencia.',
     },
     {
       icon: Heart,
@@ -62,13 +59,13 @@ const ParaMentorasPage: React.FC = () => {
     },
     {
       step: 2,
-      title: 'Recibe solicitudes',
-      description: 'Nuestro algoritmo te conecta con mentees que encajan con tu perfil.',
+      title: 'Conoce la experiencia',
+      description: 'Estamos preparando una forma sencilla de acercarte a mujeres que buscan orientación.',
     },
     {
       step: 3,
-      title: 'Mentorea y gana',
-      description: 'Realiza sesiones de 60 min. Recibe el 60% de cada sesión.',
+      title: 'Comparte tu experiencia',
+      description: 'Muy pronto compartiremos cómo funcionará la participación de las mentoras.',
     },
   ];
 
@@ -101,19 +98,14 @@ const ParaMentorasPage: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-200">
-              <Button size="lg" className="gap-2" onClick={() => navigate('/register')}>
-                Aplicar como mentora
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate('/matching')}>
-                Ver mentoras actuales
-              </Button>
+              <Button size="lg" asChild><Link to="/recursos">Conoce nuestros recursos</Link></Button>
+              <Button size="lg" variant="outline" asChild><Link to="/">Volver al inicio</Link></Button>
             </div>
 
             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 animate-slide-up animation-delay-300">
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.mentorsActive}+</p>
-                <p className="text-sm text-muted-foreground">Mentoras activas</p>
+                <p className="text-sm text-muted-foreground">Mentoras que queremos sumar</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">{platformStats.countriesReached}</p>
@@ -196,31 +188,30 @@ const ParaMentorasPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Gana haciendo lo que amas
+                Una iniciativa en preparación
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Modelo de ingresos transparente y justo. Tú te quedas con la mayor parte.
+                Muy pronto compartiremos más detalles sobre esta iniciativa.
               </p>
 
               <div className="dashboard-card mb-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-muted-foreground">Precio por sesión</span>
-                  <span className="text-2xl font-bold text-foreground">USD $29</span>
+                  <span className="text-muted-foreground">Detalles de participación</span>
+                  <span className="text-2xl font-bold text-foreground">Próximamente</span>
                 </div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-muted-foreground">Tu ganancia (60%)</span>
-                  <span className="text-2xl font-bold text-success">USD $17.40</span>
+                  <span className="text-muted-foreground">Información</span>
+                  <span className="text-2xl font-bold text-success">En preparación</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Plataforma (40%)</span>
-                  <span className="text-muted-foreground">USD $11.60</span>
+                  <span className="text-muted-foreground">Próximos anuncios</span>
+                  <span className="text-muted-foreground">Muy pronto</span>
                 </div>
               </div>
 
               <div className="p-4 bg-muted rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Ejemplo:</strong> Con 10 sesiones mensuales, ganarías ~USD $174. 
-                  Con 20 sesiones, ~USD $348. Tú decides cuánto tiempo dedicar.
+                  Estamos definiendo una experiencia que sea clara, flexible y valiosa para las futuras mentoras.
                 </p>
               </div>
             </div>
@@ -235,10 +226,7 @@ const ParaMentorasPage: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <Button className="w-full" size="lg" onClick={() => navigate('/register')}>
-                Aplicar ahora
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
+              <Button className="w-full" size="lg" asChild><Link to="/recursos">Conoce más</Link></Button>
             </div>
           </div>
         </div>
@@ -252,7 +240,7 @@ const ParaMentorasPage: React.FC = () => {
               Conoce a nuestras mentoras
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Profesionales de empresas líderes que ya son parte de la comunidad.
+              Perfiles de referencia que formarán parte de la experiencia próximamente.
             </p>
           </div>
 
@@ -320,12 +308,9 @@ const ParaMentorasPage: React.FC = () => {
             ¿Lista para inspirar a la próxima generación?
           </h2>
           <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Únete a {platformStats.mentorsActive}+ mentoras que ya están cambiando vidas en STEM.
+            Estamos preparando una experiencia para que más mentoras puedan cambiar vidas en STEM.
           </p>
-          <Button size="lg" variant="secondary" onClick={() => navigate('/register')}>
-            Aplicar como mentora
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
+          <Button size="lg" variant="secondary" asChild><Link to="/">Volver al inicio</Link></Button>
         </div>
       </section>
 

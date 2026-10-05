@@ -20,11 +20,19 @@ export const Footer: React.FC = () => {
             <p className="text-primary-foreground/70 text-sm mb-4">
               Conectando mujeres con mentoras STEM para decisiones informadas y carreras exitosas.
             </p>
+            <a
+              href="https://www.somosmujeresdigitales.org"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-primary-foreground underline hover:text-primary-foreground/80"
+            >
+              www.somosmujeresdigitales.org
+            </a>
             <div className="flex gap-4">
               <a href="https://linkedin.com/company/somos-mujeresdigitales/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+              <a href="https://twitter.com/somosmujeresdigitales" target="_blank" rel="noreferrer" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
               <a href="https://www.instagram.com/somosmujeresdigitales/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
@@ -39,7 +47,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-sm text-primary-foreground/70">
               <li><Link to="/para-mentees" className="hover:text-primary-foreground">Para Mentees</Link></li>
               <li><Link to="/para-mentoras" className="hover:text-primary-foreground">Para Mentoras</Link></li>
-              <li><Link to="/matching" className="hover:text-primary-foreground">Matching IA</Link></li>
+              <li><Link to="/para-mentoras" className="hover:text-primary-foreground">Conoce a las mentoras</Link></li>
               <li><Link to="/recursos" className="hover:text-primary-foreground">Recursos</Link></li>
             </ul>
           </div>
@@ -48,10 +56,10 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">Empresa</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/70">
-              <li><a href="#" className="hover:text-primary-foreground">Sobre nosotras</a></li>
-              <li><a href="#" className="hover:text-primary-foreground">Impacto</a></li>
-              <li><a href="#" className="hover:text-primary-foreground">Blog</a></li>
-              <li><a href="#" className="hover:text-primary-foreground">Contacto</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Sobre nosotras</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Impacto</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Blog</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Contacto</a></li>
             </ul>
           </div>
 
@@ -59,9 +67,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/70">
-              <li><a href="#" className="hover:text-primary-foreground">Términos de uso</a></li>
-              <li><a href="#" className="hover:text-primary-foreground">Privacidad</a></li>
-              <li><a href="#" className="hover:text-primary-foreground">Cookies</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Términos de uso</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Privacidad</a></li>
+              <li><a href="https://www.somosmujeresdigitales.org" target="_blank" rel="noreferrer" className="hover:text-primary-foreground">Cookies</a></li>
             </ul>
           </div>
         </div>

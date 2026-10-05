@@ -117,9 +117,6 @@ export const MentorCard: React.FC<MentorCardProps> = ({
           <Button variant="outline" size="sm" className="h-10 px-4 font-bold text-xs uppercase tracking-wider hover:bg-secondary/50" onClick={onViewProfile}>
             Perfil
           </Button>
-          <Button size="sm" className="h-10 px-5 font-bold text-xs uppercase tracking-wider bg-gradient-primary hover:opacity-90 shadow-lg shadow-primary/20 transition-all active:scale-95" onClick={onBook}>
-            Reservar
-          </Button>
         </div>
       </div>
     </div>
